@@ -1,0 +1,6 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    Layout = null;
+    Response.ContentType = "text/plain";
+}
+@Model.Content.GetPropertyValue("fileContent")

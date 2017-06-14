@@ -1,0 +1,77 @@
+{  
+   propertyEditors:[  
+	  {  
+		 alias:"SEO101",
+		 name:"SEO101",
+		 "hideLabel":false,
+		 icon:"icon-bar-chart",
+		 "group":"Common",
+		 editor:{  
+			view:"~/App_Plugins/SEO101/views/view.html",
+
+		 },
+		 prevalues:{  
+			fields:[ 
+			   {  
+				  "label":"Allow long titles",
+				  "description":"If ticked, long titles will not invalidate the form",
+				  "key":"allowLongTitles",
+				  "view":"boolean"
+			   },
+			   {  
+				  "label":"Allow long descriptions",
+				  "description":"If ticked, long descriptions will not invalidate the form",
+				  "key":"allowLongDescriptions",
+				  "view":"boolean"
+			   },
+			   {  
+				  "label":"SERP Title Length",
+				  "description":"The length that Google starts stripping/hiding characters. 65 is roughly where Google will start truncating the title.",
+				  "key":"serpTitleLength",
+				  "view":"number",
+				  "value":60
+			   },
+			   {  
+				  "label":"SERP Title Minimum",
+				  "description":"The minimum that Google allows. 10 characters is Google's usual minimum.",
+				  "key":"serpTitleMinimum",
+				  "view":"number",
+				  "value":10
+			   },
+			   {  
+				  "label":"SERP Description Length",
+				  "description":"The length that Google starts stripping/hiding characters. 150 characters is roughly where Google will start truncating the description.",
+				  "key":"serpDescriptionLength",
+				  "view":"number",
+				  "value":150
+			   },
+				{  
+				  "label":"SERP Description Minimum",
+				  "description":"The minimum that Google allows. 150 characters is Google's usual minimum.",
+				  "key":"serpDescriptionMinimum",
+				  "view":"number",
+				  "value":50
+			   },
+			   {  
+				  "label":"Developer Name",
+				  "description":"The name of the agency (for example, \"My Agency\") to show on the control. This is used in the help descriptions.",
+				  "key":"developerName",
+				  "view":"textstring",
+			   },
+			   {  
+				  "label":"Site Title",
+				  "description":"The default title that should be appended to the title e.g. &nbsp;| My Company",
+				  "key":"siteTitle",
+				  "view":"textstring"
+			   }
+			]
+		 }
+	  }
+   ],
+   javascript:[  
+		"~/App_Plugins/SEO101/js/controller.js"
+   ],
+   css:[  
+		"~/App_Plugins/SEO101/css/styles.css"
+   ]
+}

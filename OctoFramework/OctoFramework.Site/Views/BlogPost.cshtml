@@ -1,0 +1,6 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<BlogPostViewModel>
+@{
+    Layout = "Master.cshtml";
+}
+@Html.Raw(Model.BodyContent)
+@*@(Html.RenderAction("RecordView", "BlogPost"))*@

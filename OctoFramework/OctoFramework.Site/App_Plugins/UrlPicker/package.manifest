@@ -1,0 +1,118 @@
+{
+  "propertyEditors": [
+    {
+      "name": "Url Picker",
+      "alias": "Imulus.UrlPicker",
+      "editor": {
+        "valueType": "JSON",
+        "view": "~/App_Plugins/UrlPicker/views/url.picker.html"
+      },
+      "prevalues": {
+        "fields": [
+    			{
+    				label: "Content start node",
+    				description: "Choose the content start node",
+    				key: "contentStartNode",
+    				view: "treepicker"
+    			},
+    			{
+    				label: "Media start node",
+    				description: "Choose the media start node",
+    				key: "mediaStartNode",
+    				view: "mediapicker"
+    			},
+          {
+            label: "Only images from media",
+            description: "Only let the editor choose images from media",
+            key: "mediaImagesOnly",
+            view: "boolean"
+          },
+          {
+            label: "Media preview",
+            description: "Use thumbnail preview for media",
+            key: "mediaPreview",
+            view: "boolean"
+          },
+          {
+            label: "Multiple items",
+            description: "Multiple items allowed",
+            key: "multipleItems",
+            view: "boolean"
+          },
+          {
+            label: "Maximum items",
+            description: "Maximum number of items the editor can add if multiple items is allowed",
+            key: "maxItems",
+            view: "number"
+          },
+          {
+            label: "Hide Title",
+            description: "Hides the title field",
+            key: "hideTitle",
+            view: "boolean"
+          },
+          {
+            label: "Hide 'Open in New Browser'",
+            description: "Hides the 'Open in New Browser' option",
+            key: "hideOpenNew",
+            view: "boolean"
+          },
+          {
+            label: "Hide 'Content'",
+            description: "Hides the 'Content' option",
+            key: "hideContent",
+            view: "boolean"
+          },
+          {
+            label: "Hide 'Media'",
+            description: "Hides the 'Media' option",
+            key: "hideMedia",
+            view: "boolean"
+          },
+          {
+            label: "Hide 'URL'",
+            description: "Hides the 'URL' option",
+            key: "hideUrl",
+            view: "boolean"
+          },
+          {
+            label: "Default Type",
+            description: "Choose which type the picker defaults to.",
+            key: "defaultType",
+            view: "~/App_Plugins/UrlPicker/views/default.type.html"
+          },
+          {
+            label: "Start with add button?",
+            description: "Empty property shows an add button instead of providing a default picker.",
+            key: "startWithAddButton",
+            view: "boolean"
+          },
+          {
+            label: "Enable Picker Disabling?",
+            description: "Allows pickers to be individually enabled/disabled.",
+            key: "enableDisabling",
+            view: "boolean"
+          },
+          {
+            label: "One picker open at time?",
+            description: "Choose if only one picker should be open at time.",
+            key: "oneAtATime",
+            view: "boolean"
+          },
+          {
+            label: "Use picker icons?",
+            description: "Choose if pickers should use icon in header.",
+            key: "usePickerIcons",
+            view: "boolean"
+          }
+        ]
+      }
+    }
+  ],
+  "css": [
+    "~/App_Plugins/UrlPicker/css/url.picker.css"
+  ],
+  "javascript": [
+    "~/App_Plugins/UrlPicker/js/url.picker.js"
+  ]
+}

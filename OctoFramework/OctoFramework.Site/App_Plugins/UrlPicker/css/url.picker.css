@@ -1,0 +1,194 @@
+.url-picker {
+  /* panels */
+}
+.url-picker [ng-click],
+.url-picker [data-ng-click],
+.url-picker [x-ng-click] {
+  cursor: pointer;
+}
+.url-picker .truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.url-picker .link-meta .control-group {
+  display: flex;
+}
+.url-picker .link-meta .control-group.link-title label {
+  margin-right: 8px;
+  margin-bottom: 0;
+  line-height: 30px;
+}
+.url-picker .link-meta .control-group.link-title input[type=text] {
+  width: 265px;
+  flex: 1;
+}
+.url-picker .link-meta .control-group.link-newwindow {
+  margin-bottom: 10px;
+}
+.url-picker .control-group {
+  margin-bottom: 5px;
+}
+.url-picker .control-group label {
+  padding-left: 0;
+}
+.url-picker ul.nav-tabs {
+  margin-bottom: 0;
+  width: auto;
+}
+.url-picker .tab-body {
+  border: 1px solid #e3e3e3;
+  border-top: 0 none;
+  padding: 10px;
+  width: auto;
+}
+.url-picker .tab-body .select {
+  display: inline-block;
+  overflow: hidden;
+  margin-right: 3px;
+}
+.url-picker .tab-body .truncate {
+  width: calc(100% - 100px);
+  display: inline-block;
+}
+.url-picker .tab-body input[type=text] {
+  width: 88%;
+}
+.url-picker .tab-body input[type=text]::-ms-clear {
+  display: none;
+}
+.url-picker .tab-body a {
+  cursor: pointer;
+}
+.url-picker .delete-icon {
+  float: right;
+}
+.url-picker .url-delete {
+  margin-top: 5px;
+}
+.url-picker .thumbnail {
+  width: 120px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  padding: 2px;
+  margin: 5px;
+  text-align: center;
+  vertical-align: top;
+  background: white;
+  border: 1px solid #f8f8f8;
+}
+.url-picker .thumbnail img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  background-image: url(/umbraco/assets/img/checkered-background.png);
+}
+.url-picker .icon-holder .icon {
+  display: block;
+  font-size: 60px;
+  line-height: 70px;
+}
+.url-picker .picker-wrapper {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 400px;
+  max-width: 100%;
+  /* sortable placeholder */
+}
+.url-picker .picker-wrapper .sortable-placeholder {
+  background-color: #f5f5f5;
+  border: 1px dashed #ddd;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  opacity: 0.5;
+}
+.url-picker .picker-wrapper li .panel-heading i {
+  cursor: pointer;
+}
+.url-picker .picker-wrapper li .cursor-move,
+.url-picker .picker-wrapper li .handle,
+.url-picker .picker-wrapper li .panel-heading i.handle {
+  cursor: move;
+}
+.url-picker .picker-wrapper li .no-drag,
+.url-picker .picker-wrapper li.unsortable .handle {
+  cursor: auto;
+}
+.url-picker .panel {
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  /*-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+	  box-shadow: 0 1px 1px rgba(0,0,0,0.05);*/
+}
+.url-picker .panel.panel-default {
+  border-color: #ddd;
+}
+.url-picker .panel.panel-default > .panel-heading {
+  color: #333;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+.url-picker .panel .panel-heading {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  position: relative;
+}
+.url-picker .panel .panel-heading .caret {
+  margin-top: 8px;
+  margin-right: 5px;
+  transform: rotate(0);
+}
+.url-picker .panel .panel-heading .caret + span > .icon {
+  margin-right: 3px;
+}
+.url-picker .panel .panel-heading .truncate {
+  width: calc(100% - 120px);
+  display: inline-block;
+  margin-bottom: -3px;
+}
+.url-picker .panel .panel-heading .picker-controls {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.url-picker .panel.dimmed {
+  border-style: dashed;
+}
+.url-picker .panel.dimmed .panel-heading {
+  color: #d9d9d9;
+}
+.url-picker .panel.dimmed .panel-heading .picker-controls i:hover {
+  color: #b7b7b7;
+}
+.url-picker .panel.dimmed .panel-body {
+  opacity: 0.5;
+}
+.url-picker .panel .panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  display: inline-block;
+}
+.url-picker .panel .panel-body {
+  padding: 15px;
+}
+.url-picker .panel.collapsed .panel-heading {
+  border-bottom: none;
+}
+.url-picker .panel.collapsed .panel-heading .caret {
+  transform: rotate(-90deg);
+}
+.url-picker .panel.collapsed .panel-body {
+  display: none;
+}

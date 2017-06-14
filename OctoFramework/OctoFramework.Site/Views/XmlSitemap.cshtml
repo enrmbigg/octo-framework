@@ -1,0 +1,51 @@
+﻿@using SEO101.Code.Models
+@inherits UmbracoTemplatePage
+@{
+    Response.ContentType = "text/xml";
+}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    @ListChildNodes(Model.Content.AncestorOrSelf(1))
+</urlset>
+
+
+@helper ListChildNodes(IPublishedContent startNode)
+{
+    const int maxLevelForSiteMap = 100;
+    foreach (var node in startNode.Children.Where(x => Umbraco.MemberHasAccess(x.Path) && !Umbraco.IsProtected(x.Path) && x.IsVisible() && x.DocumentTypeAlias != "sitemap"))
+    {
+        var details = node.GetPropertyValue<SeoMetaData>("seo");
+        ;
+        if (node.TemplateId > 0)
+        {
+            if (details != null)
+            {               
+                if (!details.Sitemap.Hide)
+                {
+                    <url>
+                        <loc>@node.UrlWithDomain()</loc>
+                        <lastmod>@(string.Format("{0:s}+00:00", node.UpdateDate))</lastmod>
+                        @if (!string.IsNullOrEmpty(details.Sitemap.Frequency))
+                        {
+                            <changefreq>@details.Sitemap.Frequency</changefreq>
+                        }
+                        @if (!string.IsNullOrEmpty(details.Sitemap.Priority))
+                        {
+                            <priority>@details.Sitemap.Priority</priority>
+                        }
+                    </url>
+                }
+            }
+            else
+            {
+                <url>
+                    <loc>@node.UrlWithDomain()</loc>
+                    <lastmod>@(string.Format("{0:s}+00:00", node.UpdateDate))</lastmod>
+                </url>
+            }
+            if (node.Level <= maxLevelForSiteMap && node.Children.Any())
+            {
+                @ListChildNodes(node)
+            }
+        }
+    }
+}

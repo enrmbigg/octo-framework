@@ -1,0 +1,159 @@
+<div id="SEO101" ng-controller="SEO101Controller" class="seo-metadata-container">
+    <div ng-show="error">
+        {{error}}
+    </div>
+    <div ng-show="!loading && !error">
+        <div class="row-fluid">
+            <div class="span6 controls-col">
+                <!-- form fields -->
+                <!-- title-->
+                <label class="control-label" for="title">Page Title</label>
+                <div class="controls controls-row">
+                    <input name="title" type="text" ng-model="model.value.title" minlen maxlen placeholder="Page Title"/>
+                    <span class="title-length" ng-class="{error: (model.value.title.length + siteTitle.length) > serpTitleLength || (model.value.title.length + siteTitle.length) < serpTitleMinimum}">
+                        <span ng-show="(model.value.title.length + siteTitle.length) <= serpTitleLength && (model.value.title.length + siteTitle.length) >= serpTitleMinimum">{{serpTitleLength - (model.value.title.length + siteTitle.length)}} left out of {{serpTitleLength}}</span>
+                        <span ng-show="(model.value.title.length + siteTitle.length) > serpTitleLength">{{(model.value.title.length + siteTitle.length) - serpTitleLength}} characters over!</span>
+                        <span ng-show="(model.value.title.length + siteTitle.length) < serpTitleMinimum">{{serpTitleMinimum - (model.value.title.length + siteTitle.length)}} characters under!</span>
+                    </span>
+                    <br/>
+                    <span class="help-inline" val-msg-for="title" val-toggle-msg="maxlen">Page title is too long</span>
+                    <span class="help-inline" val-msg-for="title" val-toggle-msg="minlen">Page title is too short</span>
+                    <div class="help-block">
+                        <p>
+                            The <strong>Title</strong> should be an accurate and concise description of a page's content, and is critical to both a user experience and search engine optimisation.
+                        </p>
+                        <p>
+                            More Information: <a href="http://moz.com/learn/seo/title-tag" target="_blank">Title Tag (Moz.com)</a>
+                        </p>
+                        <p><strong>NOTE.</strong> characters left includes the sitename ("| My Site" etc.)</p>
+                    </div>
+                </div>
+                <!-- page description -->
+                <label class="control-label" for="description">Meta Description</label>
+                <div class="controls controls-row">
+                    <textarea name="description" ng-model="model.value.description" minlen maxlen placeholder="My Nice Description of this Page"></textarea>
+                    <span class="title-length" ng-class="{error: model.value.description.length > serpDescriptionLength || model.value.description.length < serpDescriptionMinimum}">
+                        <span ng-show="model.value.description.length <= serpDescriptionLength && model.value.description.length >= serpDescriptionMinimum">
+                            {{serpDescriptionLength - model.value.description.length}} left out of {{serpDescriptionLength}}
+                        </span>
+                        <span ng-show="model.value.description.length > serpDescriptionLength">{{model.value.description.length - serpDescriptionLength}} characters over!</span>
+                        <span ng-show="model.value.description.length < serpDescriptionMinimum">{{serpDescriptionMinimum - model.value.description.length}} characters under!</span>
+                    </span>
+                    <br/>
+                    <span class="help-inline" val-msg-for="description" val-toggle-msg="maxlen">Page description is too long</span>
+                    <span class="help-inline" val-msg-for="description" val-toggle-msg="minlen">Page description is too short</span>
+                    <div class="help-block">
+                        <p>
+                            <strong>Meta Descriptions</strong> are commonly used in search engine result pages, and are extremely important in gaining user click-through.
+                        </p>
+                        <p>Make sure to let users know whether the page contains the information they're looking for.</p>
+                        <p>
+                            More Information: <a href="http://moz.com/learn/seo/meta-description" target="_blank">Meta Description (Moz.com)</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- serp (google) preview -->
+            <div class="span6 serp-col">
+                <span class="serp-preview-label">Google Preview (<a prevent-default ng-click="hideSerp = !hideSerp">Toggle</a>)</span>
+                <div class="serp-preview" ng-hide="hideSerp">
+                    <img src="/App_Plugins/SEO101/views/serp1.png" alt=""/>
+                    <div class="listing">
+                        <h3>{{ GetTitle() || 'Page Title ' | ellipsisLimit:serpTitleLength}}</h3>
+                        <a>{{ GetUrl() }} <i class="icon icon-navigation-down"></i></a>
+                        <p>{{ model.value.description || 'My Nice Description of this Page' | ellipsisLimit:serpDescriptionLength }}</p>
+                    </div>
+                    <img src="/App_Plugins/SEO101/views/serp2.png" alt=""/>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label class="control-label" for="urlName">URL Name</label>
+                <div class="controls controls-row">
+                    <input type="text" class="input-xlarge" ng-model="model.value.urlName"/>
+                    <div class="help-block">
+                        <p>This is the URL segment that will be used on the site. It is okay to leave this blank (Umbraco will create a URL based off the page name).</p>
+                        <p>
+                            <strong>Be careful when setting/changing this.</strong> It is generally bad practice to change this once a page has been published, unless you've got a <strong>Url Tracker</strong>
+                        </p>
+                        <p>If unsure, leave as-is and speak to {{ developerName }} for advice.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label class="control-label" for="tags">Meta Keywords</label>
+                <div class="controls controls-row">
+                    <input type="text" class="input-xlarge" ng-model="model.value.tags" />
+                    <div class="help-block">
+                        <p><strong>Meta Keywords</strong> help tell search engines what the topic of the page is.</p> 
+                        <p>The meta keyword tag has arguably very little influence these days with the major search engines but it still does have some with the smaller ones</p>
+                        <p>If unsure speak to {{ developerName }} for advice.</p>
+                        <p><strong>NOTE.</strong> please ensure that the values are comma separated for them to be recognised as separate entries</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label class="control-label" for="index">Robots</label>
+                <div class="controls controls-row">
+                    <select ng-model="model.value.index" class="">
+                        <option ng-selected="model.value.index == item.value" ng-repeat="item in listValues" value="{{item.value}}">{{item.name}}</option>
+                    </select>
+                    <div class="help-block">
+                        <p><strong>Index this, and follow links</strong> - Will allow indexing of this page, and allow the search engine to follow links
+                        </p>
+                        <p><strong>Dont index this, but follow links</strong> - Will disallow indexing of this page, but will allow the search engine to follow links
+                        </p>
+                        <p><strong>Index none</strong> - Will disallow indexing of this page, and disallow it to follow links
+                        </p>
+                        <p>If unsure, leave as-is and speak to {{ developerName }} for advice.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <label class="control-label" for="sitemap">Sitemap</label>
+
+                <div class="controls controls-row">
+                    <label class="control-label" for="frequency">Change Frequency</label>
+                    <select ng-model="model.value.sitemap.frequency" class="">
+                        <option ng-selected="model.value.sitemap.frequency == item.value" ng-repeat="item in changefreq" value="{{item.value}}">{{item.name}}</option>
+                    </select>
+                </div>
+
+                <div class="controls controls-row">
+                    <label class="control-label" for="priority">Priority</label>
+                    <select ng-model="model.value.sitemap.priority" class="">
+                        <option ng-selected="model.value.sitemap.priority == item.value" ng-repeat="item in priority" value="{{item.value}}">{{item.value}}</option>
+                    </select>
+
+                </div>
+
+                <div class="controls controls-row">
+                    <label class="control-label" for="hide">Hide from Sitemap</label>
+                    <input type="checkbox" ng-model="model.value.sitemap.hide">
+                    <div class="help-block">
+
+                        <p><strong>Change Frequency</strong> - How frequently the page is likely to change. This value provides general information to search engines and may not correlate exactly to how often they crawl the page
+                        </p>
+                        <p><strong>Priority</strong> - The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0. This value does not affect how your pages are compared to pages on other sites, it only lets the search engines know which pages you deem most important for the crawlers.
+                        </p>
+                        <p><strong>Hide from Sitemap</strong> - Don't render the page in the sitemap
+                        </p>
+                        <p>If unsure, leave as-is and speak to {{ developerName }} for advice.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+

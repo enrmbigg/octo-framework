@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<MasterViewModel>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @if (Model.SEO != null)
+    {
+        <title>@Model.SEO.Title | Project Bloc</title>
+            <meta name="description" content="@Model.SEO.Description">
+            <meta name="keywords" content="@Model.SEO.Tags">
+        if (!string.IsNullOrWhiteSpace(Model.SEO.Index))
+        {
+            <meta name="robots" content="@Model.SEO.Index">
+        }
+    }
+</head>
+<body>
+    @Html.Partial("_header", Model.Content)
+    <div>
+        @RenderBody()
+    </div>
+    @Html.Partial("_footer", Model.Content)
+</body>
+</html>
