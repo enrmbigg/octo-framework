@@ -8,14 +8,6 @@ namespace OctoFramework.Logic.Controllers
 {
     public class BlogHomeController : DefaultController
     {
-        public BlogHomeController()
-        {
-        }
-
-        public BlogHomeController(UmbracoContext context) : base(context)
-        {
-        }
-
         public BlogHomeController(UmbracoContext context, UmbracoHelper helper) : base(context, helper)
         {
         }

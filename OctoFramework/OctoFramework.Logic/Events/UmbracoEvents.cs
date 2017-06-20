@@ -54,7 +54,7 @@ namespace OctoFramework.Logic.Events
             //With the content finder we can match nodes to urls.
             ContentFinderResolver.Current.InsertTypeBefore<ContentFinderByNotFoundHandlers, BlogPostsContentFinder>();
             //Add a web api handler. Here we can change the values from each web api call.
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new WebApiHandler());
+            //GlobalConfiguration.Configuration.MessageHandlers.Add(new WebApiHandler());
             //By registering this here we can make sure that if route hijacking doesn't find a controller it will use this controller.
             //That way each page will always be routed through one of our controllers.
             DefaultRenderMvcControllerResolver.Current.SetDefaultControllerType(typeof(DefaultController));

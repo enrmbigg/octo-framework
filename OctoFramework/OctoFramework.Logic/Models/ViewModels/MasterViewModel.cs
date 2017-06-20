@@ -2,7 +2,6 @@
 using OctoFramework.Logic.Models.Custom;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using OctoFramework.Logic.Models.Custom;
 
 namespace OctoFramework.Logic.Models.ViewModels
 {
@@ -19,7 +18,7 @@ namespace OctoFramework.Logic.Models.ViewModels
         public SeoMetaData SEO { get { return Content.GetPropertyValue<SeoMetaData>("SEO", null); } }
         public string PageIntro { get { return Content.GetPropertyValue<string>("pageIntro", ""); } }
         public Image PageImage { get { return new Image(Umbraco.TypedMedia(Content.GetPropertyValue<string>("pageImage"))); } }
-        public HtmlString BodyContent => Content.GetPropertyValue("bodyContent", new HtmlString(""));
+        public HtmlString BodyContent { get { return Content.GetPropertyValue("bodyContent", new HtmlString("")); } }
         public string SocialTitle { get { return Content.GetPropertyValue<string>("openGraphTitle", ""); } }
         public string SocialDescription { get { return Content.GetPropertyValue<string>("openGraphDescription", ""); } }
         public Image SocialImage { get { return new Image(Umbraco.TypedMedia(Content.GetPropertyValue<string>("openGraphDefaultImage"))); } }

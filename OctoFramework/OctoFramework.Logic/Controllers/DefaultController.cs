@@ -11,24 +11,32 @@ using Umbraco.Web.Mvc;
 
 namespace OctoFramework.Logic.Controllers
 {
-    public class DefaultController : SurfaceController, IRenderController
+    public class DefaultController : SurfaceController, IRenderMvcController
     {
         //Constructors
-        public DefaultController() { }
+        public DefaultController()
+        {
+            this.Context = UmbracoContext.Current;
+        }
 
         public DefaultController(UmbracoContext context) : base(context)
         {
+            this.Context = context;
         }
 
         public DefaultController(UmbracoContext context, UmbracoHelper helper) : base(context, helper)
         {
+            this.Context = context;
+            this._umbraco = helper;
         }
 
         protected UmbracoContext Context { get; private set; }
 
+        private readonly UmbracoHelper _umbraco;
+
         public override UmbracoHelper Umbraco
         {
-            get { return new UmbracoHelper(UmbracoContext); }
+            get { return this._umbraco ?? base.Umbraco; }
         }
 
         /// <summary>
@@ -40,7 +48,8 @@ namespace OctoFramework.Logic.Controllers
         [UmbracoOutputCache]
         public virtual ActionResult Index(RenderModel model)
         {
-            return View(ControllerContext.RouteData.Values["action"].ToString(), model.Content);
+            return CurrentTemplate(model);
+            //return View(ControllerContext.RouteData.Values["action"].ToString(), model.Content);
         }
 
         protected override void OnException(ExceptionContext filterContext)
@@ -51,7 +60,8 @@ namespace OctoFramework.Logic.Controllers
             //Email out
             var message = $"<p>Url: {filterContext.HttpContext.Request.Url}  <br/><br/>" + $"Exception occured: {filterContext.Exception}</p>";
             var user = WebConfigurationManager.AppSettings["ErrorEmailAddress"];
-            library.SendMail("info@JuraWhiskey.com", user, "Error Occurred", message, true);
+            var defaultEmail = WebConfigurationManager.AppSettings["DefaultSenderEmailAddress"] ?? "ing@octoframework.io";
+            library.SendMail(defaultEmail, user, "Error Occurred", message, true);
 
             //Check if its been handled
             if (filterContext.ExceptionHandled)

@@ -234,7 +234,6 @@
     <Compile Include="Constants\Properties.cs" />
     <Compile Include="Constants\Views.cs" />
     <Compile Include="ContentFinder\BlogPostsContentFinder.cs" />
-    <Compile Include="ContentFinder\MultilingualContentFinder.cs" />
     <Compile Include="Controllers\BlogHomeController.cs" />
     <Compile Include="Controllers\BlogPostController.cs" />
     <Compile Include="Controllers\ContactController.cs" />

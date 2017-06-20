@@ -9,12 +9,14 @@ namespace OctoFramework.Logic.Models.ViewModels
     {
         public BlogPostViewModel(IPublishedContent content) : base(content)
         {
+            this.Content = content;
         }
 
-        public DateTime ArticlePublishedDate { get { return Content.GetPropertyValue<DateTime>("createTime", Content.CreateDate); } }
-        public string[] BlogTags { get { return Content.GetPropertyValue<string>("tag", "").Split(','); } }
+        public DateTime ArticlePublishedDate { get { return Content.GetPropertyValue("createTime", Content.CreateDate); } }
+        public string[] BlogTags { get; set; }
         public string Description { get { return Content.GetPropertyValue<string>("pageIntro"); } }
         public DateTime PostCreation { get { return Content.GetPropertyValue<DateTime>("createTime"); } }
         public HtmlString Markdown { get { return Content.GetPropertyValue<HtmlString>("markdown"); } }
+        public bool ShowComments { get; set; }
     }
 }
