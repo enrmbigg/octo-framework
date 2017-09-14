@@ -514,7 +514,7 @@ angular.module('umbraco.services')
             return url;
         }
 
-        var rnd = Umbraco.Sys.ServerVariables.application.version + "." + Umbraco.Sys.ServerVariables.application.cdf;
+        var rnd = Umbraco.Sys.ServerVariables.application.cacheBuster;
         var _op = (url.indexOf("?") > 0) ? "&" : "?";
         url = url + _op + "umb__rnd=" + rnd;
         return url;
@@ -3877,12 +3877,12 @@ function keyboardService($window, $timeout) {
             var isSelected = false;
             for (var i = 0; selection.length > i; i++) {
                 var selectedItem = selection[i];
-                if (item.id === selectedItem.id) {
+                if (item.id === selectedItem.id || item.key === selectedItem.key) {
                     isSelected = true;
                 }
             }
             if (!isSelected) {
-                selection.push({ id: item.id });
+                selection.push({ id: item.id, key: item.key });
                 item.selected = true;
             }
         }

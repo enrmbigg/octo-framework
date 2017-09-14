@@ -2840,7 +2840,7 @@ function logResource($q, $http, umbRequestHelper) {
                    umbRequestHelper.getApiUrl(
                        "logApiBaseUrl",
                        "GetCurrentUserLog",
-                       [{ logtype: type, sinceDate: since }])),
+                       [{ logtype: type}, {sinceDate: since }])),
                'Failed to retrieve log data for current user of type ' + type + ' since ' + since);
         },
 
@@ -2871,7 +2871,7 @@ function logResource($q, $http, umbRequestHelper) {
                    umbRequestHelper.getApiUrl(
                        "logApiBaseUrl",
                        "GetLog",
-                       [{ logtype: type, sinceDate: since }])),
+                       [{ logtype: type}, {sinceDate: since }])),
                'Failed to retrieve log data of type ' + type + ' since ' + since);
         }
     };
@@ -4261,6 +4261,16 @@ function packageResource($q, $http, umbDataFormatter, umbRequestHelper) {
                       "packageInstallApiBaseUrl",
                       "InstallFiles"), package),
               'Failed to install package. Error during the step "InstallFiles" ');
+        }, 
+
+        checkRestart: function (package) {
+
+          return umbRequestHelper.resourcePromise(
+            $http.post(
+              umbRequestHelper.getApiUrl(
+                "packageInstallApiBaseUrl",
+                "CheckRestart"), package),
+            'Failed to install package. Error during the step "CheckRestart" ');
         }, 
 
         installData: function (package) {

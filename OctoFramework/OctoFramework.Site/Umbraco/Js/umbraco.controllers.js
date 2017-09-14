@@ -3295,7 +3295,6 @@ angular.module("umbraco").controller("Umbraco.Overlays.IconPickerOverlay", IconP
         vm.encodeHtml = false;
         vm.encodeUrl = false;
         vm.convertLinebreaks = false;
-        vm.removeParagraphTags = false;
 
         vm.showAltField = false;
         vm.showAltText = false;
@@ -3404,7 +3403,6 @@ angular.module("umbraco").controller("Umbraco.Overlays.IconPickerOverlay", IconP
                 + (vm.encodeHtml !== false ? ', encoding: ' + "RenderFieldEncodingType.Html" : "")
                 + (vm.encodeUrl !== false ? ', encoding: ' + "RenderFieldEncodingType.Url" : "")
                 + (vm.convertLinebreaks !== false ? ', convertLineBreaks: ' + "true" : "")
-                + (vm.removeParagraphTags !== false ? ', removeParagraphTags: ' + "true": "")
                 + (vm.field ? ')' : "");
 
             $scope.model.umbracoField = pageField;
@@ -3723,7 +3721,7 @@ angular.module("umbraco").controller("Umbraco.Overlays.MacroPickerController", M
 //used for the media picker dialog
 angular.module("umbraco")
     .controller("Umbraco.Overlays.MediaPickerController",
-        function ($scope, mediaResource, umbRequestHelper, entityResource, $log, mediaHelper, mediaTypeHelper, eventsService, treeService, $element, $timeout, $cookies, localStorageService, localizationService) {
+        function($scope, mediaResource, umbRequestHelper, entityResource, $log, mediaHelper, mediaTypeHelper, eventsService, treeService, $element, $timeout, $cookies, localStorageService, localizationService) {
 
             if (!$scope.model.title) {
                 $scope.model.title = localizationService.localize("defaultdialogs_selectMedia");
@@ -3818,7 +3816,6 @@ angular.module("umbraco")
             };
 
             $scope.gotoFolder = function(folder) {
-
                 if (!$scope.multiPicker) {
                     deselectAllImages($scope.model.selectedImages);
                 }
@@ -3830,7 +3827,6 @@ angular.module("umbraco")
                 if (folder.id > 0) {
                     entityResource.getAncestors(folder.id, "media")
                         .then(function(anc) {
-                            // anc.splice(0,1);
                             $scope.path = _.filter(anc,
                                 function(f) {
                                     return f.path.indexOf($scope.startNodeId) !== -1;
@@ -3845,12 +3841,12 @@ angular.module("umbraco")
                     $scope.path = [];
                 }
 
-                getChildren(folder.id);
                 $scope.currentFolder = folder;
                 localStorageService.set("umbLastOpenedMediaNodeId", folder.id);
+                return getChildren(folder.id);
             };
 
-            $scope.clickHandler = function (image, event, index) {
+            $scope.clickHandler = function(image, event, index) {
                 if (image.isFolder) {
                     if ($scope.disableFolderSelect) {
                         $scope.gotoFolder(image);
@@ -3865,7 +3861,7 @@ angular.module("umbraco")
                         $scope.target = image;
 
                         // handle both entity and full media object
-                        if(image.image) {
+                        if (image.image) {
                             $scope.target.url = image.image;
                         } else {
                             $scope.target.url = mediaHelper.resolveFile(image);
@@ -3910,8 +3906,12 @@ angular.module("umbraco")
                 images.length = 0;
             }
 
-            $scope.onUploadComplete = function() {
-                $scope.gotoFolder($scope.currentFolder);
+            $scope.onUploadComplete = function(files) {
+                $scope.gotoFolder($scope.currentFolder).then(function() {
+                    if (files.length === 1 && $scope.model.selectedImages.length === 0) {
+                        selectImage($scope.images[$scope.images.length - 1]);
+                    }
+                });
             };
 
             $scope.onFilesQueue = function() {
@@ -3925,8 +3925,7 @@ angular.module("umbraco")
                 if (nodePath.indexOf($scope.startNodeId.toString()) !== -1) {
                     $scope.gotoFolder({ id: $scope.lastOpenedNode, name: "Media", icon: "icon-folder" });
                     return true;
-                }
-                else {
+                } else {
                     $scope.gotoFolder({ id: $scope.startNodeId, name: "Media", icon: "icon-folder" });
                     return false;
                 }
@@ -3941,26 +3940,25 @@ angular.module("umbraco")
                 if ($scope.lastOpenedNode && $scope.lastOpenedNode !== -1) {
                     entityResource.getById($scope.lastOpenedNode, "media")
                         .then(ensureWithinStartNode, gotoStartNode);
-                }
-                else {
+                } else {
                     gotoStartNode();
                 }
-            }
-            else {
+            } else {
                 //if a target is specified, go look it up - generally this target will just contain ids not the actual full
                 //media object so we need to look it up
                 var id = $scope.target.udi ? $scope.target.udi : $scope.target.id
                 var altText = $scope.target.altText;
                 mediaResource.getById(id)
-                    .then(function (node) {
-                        $scope.target = node;
-                        if (ensureWithinStartNode(node)) {
-                            selectImage(node);
-                            $scope.target.url = mediaHelper.resolveFile(node);
-                            $scope.target.altText = altText;
-                            $scope.openDetailsDialog();
-                        }
-                    }, gotoStartNode);
+                    .then(function(node) {
+                            $scope.target = node;
+                            if (ensureWithinStartNode(node)) {
+                                selectImage(node);
+                                $scope.target.url = mediaHelper.resolveFile(node);
+                                $scope.target.altText = altText;
+                                $scope.openDetailsDialog();
+                            }
+                        },
+                        gotoStartNode);
             }
 
             $scope.openDetailsDialog = function() {
@@ -3982,6 +3980,24 @@ angular.module("umbraco")
                 };
             };
 
+            var debounceSearchMedia = _.debounce(function() {
+                    $scope.$apply(function() {
+                        if ($scope.searchOptions.filter) {
+                            searchMedia();
+                        } else {
+                            // reset pagination
+                            $scope.searchOptions = {
+                                pageNumber: 1,
+                                pageSize: 100,
+                                totalItems: 0,
+                                totalPages: 0,
+                                filter: ''
+                            };
+                            getChildren($scope.currentFolder.id);
+                        }
+                    });
+                }, 500);
+
             $scope.changeSearch = function() {
                 $scope.loading = true;
                 debounceSearchMedia();
@@ -3993,50 +4009,33 @@ angular.module("umbraco")
                 searchMedia();
             };
 
-            var debounceSearchMedia = _.debounce(function () {
-                $scope.$apply(function () {
-                    if ($scope.searchOptions.filter) {
-                        searchMedia();
-                    } else {
-                        // reset pagination
-                        $scope.searchOptions = {
-                            pageNumber: 1,
-                            pageSize: 100,
-                            totalItems: 0,
-                            totalPages: 0,
-                            filter: ''
-                        };
-                        getChildren($scope.currentFolder.id);
-                    }
-                });
-            }, 500);
-
             function searchMedia() {
                 $scope.loading = true;
                 entityResource.getPagedDescendants($scope.startNodeId, "Media", $scope.searchOptions)
-                    .then(function (data) {
+                    .then(function(data) {
                         // update image data to work with image grid
-                        angular.forEach(data.items, function(mediaItem){
-                            // set thumbnail and src
-                            mediaItem.thumbnail = mediaHelper.resolveFileFromEntity(mediaItem, true);
-                            mediaItem.image = mediaHelper.resolveFileFromEntity(mediaItem, false);
-                            // set properties to match a media object
-                            if (mediaItem.metaData &&
-                                mediaItem.metaData.umbracoWidth &&
-                                mediaItem.metaData.umbracoHeight) {
-                                
-                                mediaItem.properties = [
-                                    {
-                                        alias: "umbracoWidth",
-                                        value: mediaItem.metaData.umbracoWidth.Value
-                                    },
-                                    {
-                                        alias: "umbracoHeight",
-                                        value: mediaItem.metaData.umbracoHeight.Value
-                                    }
-                                ];
-                            }
-                        });
+                        angular.forEach(data.items,
+                            function(mediaItem) {
+                                // set thumbnail and src
+                                mediaItem.thumbnail = mediaHelper.resolveFileFromEntity(mediaItem, true);
+                                mediaItem.image = mediaHelper.resolveFileFromEntity(mediaItem, false);
+                                // set properties to match a media object
+                                if (mediaItem.metaData &&
+                                    mediaItem.metaData.umbracoWidth &&
+                                    mediaItem.metaData.umbracoHeight) {
+
+                                    mediaItem.properties = [
+                                        {
+                                            alias: "umbracoWidth",
+                                            value: mediaItem.metaData.umbracoWidth.Value
+                                        },
+                                        {
+                                            alias: "umbracoHeight",
+                                            value: mediaItem.metaData.umbracoHeight.Value
+                                        }
+                                    ];
+                                }
+                            });
                         // update images
                         $scope.images = data.items ? data.items : [];
                         // update pagination
@@ -4054,7 +4053,7 @@ angular.module("umbraco")
 
             function getChildren(id) {
                 $scope.loading = true;
-                mediaResource.getChildren(id)
+                return mediaResource.getChildren(id)
                     .then(function(data) {
                         $scope.searchOptions.filter = "";
                         $scope.images = data.items ? data.items : [];
@@ -4080,7 +4079,6 @@ angular.module("umbraco")
                             }
                         }
                     }
-                    
 
                     if (imageIsSelected) {
                         folderImage.selected = true;
@@ -4088,7 +4086,6 @@ angular.module("umbraco")
                 }
             }
         });
-
 angular.module("umbraco").controller("Umbraco.Overlays.MediaTypePickerController",
 	function ($scope) {
 
@@ -9803,7 +9800,7 @@ angular.module("umbraco").controller("Umbraco.Editors.Packages.DeleteController"
 (function () {
     "use strict";
 
-    function PackagesInstallLocalController($scope, $route, $location, Upload, umbRequestHelper, packageResource, localStorageService, $timeout, $window, localizationService) {
+    function PackagesInstallLocalController($scope, $route, $location, Upload, umbRequestHelper, packageResource, localStorageService, $timeout, $window, localizationService, $q) {
 
         var vm = this;
         vm.state = "upload";
@@ -9919,10 +9916,37 @@ angular.module("umbraco").controller("Umbraco.Editors.Packages.DeleteController"
                 .then(function(pack) {
                         vm.installState.progress = "25";
                         vm.installState.status = localizationService.localize("packager_installStateInstalling");
-                        vm.installState.progress = "50";
                         return packageResource.installFiles(pack);
                     },
                     installError)
+                .then(function(pack) {
+                        vm.installState.status = localizationService.localize("packager_installStateRestarting");
+                        vm.installState.progress = "50";
+                        var deferred = $q.defer();
+
+                        //check if the app domain is restarted ever 2 seconds
+                        var count = 0;
+                        function checkRestart() {
+                          $timeout(function () {
+                            packageResource.checkRestart(pack).then(function (d) {
+                                count++;
+                                //if there is an id it means it's not restarted yet but we'll limit it to only check 10 times
+                                if (d.isRestarting && count < 10) {
+                                  checkRestart();
+                                }
+                                else {
+                                  //it's restarted!
+                                  deferred.resolve(d);
+                                }
+                              },
+                              installError);
+                          }, 2000);
+                        }
+
+                        checkRestart();
+                        
+                        return deferred.promise;
+                    }, installError)
                 .then(function(pack) {
                     vm.installState.status = localizationService.localize("packager_installStateRestarting");
                         vm.installState.progress = "75";
@@ -10230,13 +10254,41 @@ angular.module("umbraco").controller("Umbraco.Editors.Packages.DeleteController"
                 .import(selectedPackage)
                 .then(function(pack) {
                         vm.installState.status = localizationService.localize("packager_installStateInstalling");
-                        vm.installState.progress = "33";
+                        vm.installState.progress = "25";
                         return packageResource.installFiles(pack);
                     },
                     error)
                 .then(function(pack) {
                         vm.installState.status = localizationService.localize("packager_installStateRestarting");
-                        vm.installState.progress = "66";
+                        vm.installState.progress = "50";
+                        var deferred = $q.defer();
+
+                        //check if the app domain is restarted ever 2 seconds
+                        var count = 0;
+                        function checkRestart() {
+                          $timeout(function () {
+                            packageResource.checkRestart(pack).then(function (d) {
+                                count++;
+                                //if there is an id it means it's not restarted yet but we'll limit it to only check 10 times
+                                if (d.isRestarting && count < 10) {
+                                  checkRestart();
+                                }
+                                else {
+                                  //it's restarted!
+                                  deferred.resolve(d);
+                                }
+                              },
+                              error);
+                          }, 2000);
+                        }
+
+                        checkRestart();
+                        
+                        return deferred.promise;
+                    }, error)
+                .then(function (pack) {
+                        vm.installState.status = localizationService.localize("packager_installStateRestarting");
+                        vm.installState.progress = "75";
                         return packageResource.installData(pack);
                     },
                     error)
@@ -12112,6 +12164,17 @@ angular.module("umbraco").controller("Umbraco.PrevalueEditors.MultiColorPickerCo
 
 function contentPickerController($scope, entityResource, editorState, iconHelper, $routeParams, angularHelper, navigationService, $location, miniEditorHelper) {
 
+    var unsubscribe;
+
+    function subscribe() {
+        unsubscribe = $scope.$on("formSubmitting", function (ev, args) {
+            var currIds = _.map($scope.renderModel, function (i) {
+                return $scope.model.config.idType === "udi" ? i.udi : i.id;
+            });
+            $scope.model.value = trim(currIds.join(), ",");
+        });
+    }
+
     function trim(str, chr) {
         var rgxtrim = (!chr) ? new RegExp('^\\s+|\\s+$', 'g') : new RegExp('^' + chr + '+|' + chr + '+$', 'g');
         return str.replace(rgxtrim, '');
@@ -12253,8 +12316,11 @@ function contentPickerController($scope, entityResource, editorState, iconHelper
     }
 
 
-    //if we have a query for the startnode, we will use that. 
-    if ($scope.model.config.startNode.query) {
+    if ($routeParams.section === "settings" && $routeParams.tree === "documentTypes") {
+        //if the content-picker is being rendered inside the document-type editor, we don't need to process the startnode query
+        dialogOptions.startNodeId = -1;
+    } else if ($scope.model.config.startNode.query) {
+        //if we have a query for the startnode, we will use that.
         var rootId = $routeParams.id;
         entityResource.getByQuery($scope.model.config.startNode.query, rootId, "Document").then(function (ent) {
             dialogOptions.startNodeId = $scope.model.config.idType === "udi" ? ent.udi : ent.id;
@@ -12337,19 +12403,13 @@ function contentPickerController($scope, entityResource, editorState, iconHelper
             }
         });
     };
-        
-    var unsubscribe = $scope.$on("formSubmitting", function (ev, args) {
-        var currIds = _.map($scope.renderModel, function (i) {
-            return $scope.model.config.idType === "udi" ? i.udi : i.id;
-        });
-        $scope.model.value = trim(currIds.join(), ",");
-    });
 
     //when the scope is destroyed we need to unsubscribe
     $scope.$on('$destroy', function () {
-        unsubscribe();
+        if(unsubscribe) {
+            unsubscribe();
+        }
     });
-
     
     var modelIds = $scope.model.value ? $scope.model.value.split(',') : [];
 
@@ -12372,14 +12432,14 @@ function contentPickerController($scope, entityResource, editorState, iconHelper
 
             //everything is loaded, start the watch on the model
             startWatch();
-
+            subscribe();
         });
     }
     else {
         //everything is loaded, start the watch on the model
         startWatch();
+        subscribe();
     }
-    
 
     function setEntityUrl(entity) {
 
@@ -15401,8 +15461,7 @@ function listViewController($rootScope, $scope, $routeParams, $injector, $cookie
       getListResultsCallback = contentResource.getPagedResults;
       deleteItemCallback = contentResource.deleteByKey;
       getIdCallback = function (selected) {
-         var selectedKey = getItemKey(selected.id);
-         return selectedKey;
+         return selected.key;
       };
       createEditUrlCallback = function (item) {
          return "/" + $scope.entityType + "/" + $scope.entityType + "/edit/" + item.key + "?page=" + $scope.options.pageNumber + "&listName=" + $scope.contentId;
@@ -16760,7 +16819,9 @@ function memberPickerController($scope, dialogService, entityResource, $log, ico
 
 angular.module('umbraco').controller("Umbraco.PropertyEditors.MemberPickerController", memberPickerController);
 
-function MultipleTextBoxController($scope) {
+function MultipleTextBoxController($scope, $timeout) {
+
+    var backspaceHits = 0;
 
     $scope.sortableOptions = {
         axis: 'y',
@@ -16773,7 +16834,7 @@ function MultipleTextBoxController($scope) {
     if (!$scope.model.value) {
         $scope.model.value = [];
     }
-    
+
     //add any fields that there isn't values for
     if ($scope.model.config.min > 0) {
         for (var i = 0; i < $scope.model.config.min; i++) {
@@ -16783,13 +16844,72 @@ function MultipleTextBoxController($scope) {
         }
     }
 
+    $scope.addRemoveOnKeyDown = function (event, index) {
+
+        var txtBoxValue = $scope.model.value[index];
+
+        event.preventDefault();
+
+        switch (event.keyCode) {
+            case 13:
+                if ($scope.model.config.max <= 0 && txtBoxValue.value || $scope.model.value.length < $scope.model.config.max && txtBoxValue.value) {
+                    var newItemIndex = index + 1;
+                    $scope.model.value.splice(newItemIndex, 0, { value: "" });
+                    //Focus on the newly added value
+                    $scope.model.value[newItemIndex].hasFocus = true;
+                }
+                break;
+            case 8:
+
+                if ($scope.model.value.length > $scope.model.config.min) {
+                    var remainder = [];
+
+                    // Used to require an extra hit on backspace for the field to be removed
+                    if(txtBoxValue.value === "") {
+                        backspaceHits++;
+                    } else {
+                        backspaceHits = 0;
+                    }
+
+                    if (txtBoxValue.value === "" && backspaceHits === 2) {
+                        for (var x = 0; x < $scope.model.value.length; x++) {
+                            if (x !== index) {
+                                remainder.push($scope.model.value[x]);
+                            }
+                        }
+
+                        $scope.model.value = remainder;
+
+                        var prevItemIndex = index - 1;
+
+                        //Set focus back on false as the directive only watches for true
+                        if(prevItemIndex >= 0) {
+                            $scope.model.value[prevItemIndex].hasFocus = false;
+                            $timeout(function () {
+                                //Focus on the previous value
+                                $scope.model.value[prevItemIndex].hasFocus = true;
+                            });
+                        }
+
+                        backspaceHits = 0;
+                    }
+                }
+
+                break;
+            default:
+        }
+    }
+
     $scope.add = function () {
         if ($scope.model.config.max <= 0 || $scope.model.value.length < $scope.model.config.max) {
             $scope.model.value.push({ value: "" });
+            // focus new value
+            var newItemIndex = $scope.model.value.length - 1;
+            $scope.model.value[newItemIndex].hasFocus = true;
         }
     };
 
-    $scope.remove = function(index) {
+    $scope.remove = function (index) {
         var remainder = [];
         for (var x = 0; x < $scope.model.value.length; x++) {
             if (x !== index) {
@@ -16802,7 +16922,6 @@ function MultipleTextBoxController($scope) {
 }
 
 angular.module("umbraco").controller("Umbraco.PropertyEditors.MultipleTextBoxController", MultipleTextBoxController);
-
 angular.module("umbraco").controller("Umbraco.PropertyEditors.RadioButtonsController",
     function($scope) {
         
@@ -17113,7 +17232,7 @@ angular.module("umbraco")
 
 angular.module("umbraco")
     .controller("Umbraco.PropertyEditors.RTEController",
-    function ($rootScope, $scope, $q, dialogService, $log, imageHelper, assetsService, $timeout, tinyMceService, angularHelper, stylesheetResource, macroService) {
+    function ($rootScope, $scope, $q, $locale, dialogService, $log, imageHelper, assetsService, $timeout, tinyMceService, angularHelper, stylesheetResource, macroService) {
 
         $scope.isLoading = true;
 
@@ -17213,9 +17332,45 @@ angular.module("umbraco")
             //stores a reference to the editor
             var tinyMceEditor = null;
 
+            // these languages are available for localization
+            var availableLanguages = [
+                'da',
+                'de',
+                'en',
+                'en_us',
+                'fi',
+                'fr',
+                'he',
+                'it',
+                'ja',
+                'nl',
+                'no',
+                'pl',
+                'pt',
+                'ru',
+                'sv',
+                'zh'
+            ];
+
+            //define fallback language
+            var language = 'en_us';
+            //get locale from angular and match tinymce format. Angular localization is always in the format of ru-ru, de-de, en-gb, etc.
+            //wheras tinymce is in the format of ru, de, en, en_us, etc.
+            var localeId = $locale.id.replace('-', '_');
+            //try matching the language using full locale format
+            var languageMatch = _.find(availableLanguages, function(o) { return o === localeId; });
+            //if no matches, try matching using only the language
+            if (languageMatch === undefined) {
+                var localeParts = localeId.split('_');
+                languageMatch = _.find(availableLanguages, function(o) { return o === localeParts[0]; });
+            }
+            //if a match was found - set the language
+            if (languageMatch !== undefined) {
+                language = languageMatch;
+            }
+
             //wait for queue to end
             $q.all(await).then(function () {
-
                 //create a baseline Config to exten upon
                 var baseLineConfigObj = {
                     mode: "exact",
@@ -17232,9 +17387,9 @@ angular.module("umbraco")
                     toolbar: toolbar,
                     content_css: stylesheets,
                     relative_urls: false,
-                    style_formats: styleFormats
+                    style_formats: styleFormats,
+                    language: language
                 };
-
 
                 if (tinyMceConfig.customConfig) {
 
@@ -17408,10 +17563,7 @@ angular.module("umbraco")
 
                     });
                 };
-
-
-
-
+                
                 /** Loads in the editor */
                 function loadTinyMce() {
 
@@ -17708,7 +17860,7 @@ function sliderController($scope, $log, $element, assetsService, angularHelper) 
                 var i2 = parseFloat($scope.model.config.initVal2);
                 sliderVal = [
                     isNaN(i1) ? $scope.model.config.minVal : (i1 >= $scope.model.config.minVal ? i1 : $scope.model.config.minVal),
-                    isNaN(i2) ? $scope.model.config.maxVal : (i2 > i1 ? (i2 <= $scope.model.config.maxVal ? i2 : $scope.model.config.maxVal) : $scope.model.config.maxVal)
+                    isNaN(i2) ? $scope.model.config.maxVal : (i2 >= i1 ? (i2 <= $scope.model.config.maxVal ? i2 : $scope.model.config.maxVal) : $scope.model.config.maxVal)
                 ];
             }
             else {
@@ -18017,6 +18169,80 @@ angular.module('umbraco').controller("Umbraco.PropertyEditors.EmbeddedContentCon
 		$scope.fakeData = [];
 	};
 });
+function textAreaController($scope) {
+
+    // macro parameter editor doesn't contains a config object,
+    // so we create a new one to hold any properties 
+    if (!$scope.model.config) {
+        $scope.model.config = {};
+    }
+
+    if (!$scope.model.config.maxChars) {
+        $scope.model.config.maxChars = false;
+    }
+
+    $scope.model.maxlength = false;
+    if($scope.model.config.maxChars) {
+        $scope.model.maxlength = true;
+        if($scope.model.value == undefined) {
+            $scope.model.count = ($scope.model.config.maxChars * 1);
+        } else {
+            $scope.model.count = ($scope.model.config.maxChars * 1) - $scope.model.value.length;
+        }
+    }
+
+    $scope.model.change = function() {
+        if($scope.model.config.maxChars) {
+            if($scope.model.value == undefined) {
+                $scope.model.count = ($scope.model.config.maxChars * 1);
+            } else {
+                $scope.model.count = ($scope.model.config.maxChars * 1) - $scope.model.value.length;
+            }
+            if($scope.model.count < 0) {
+                $scope.model.value = $scope.model.value.substring(0, ($scope.model.config.maxChars * 1));
+                $scope.model.count = 0;
+            }
+        }
+    }
+}
+angular.module('umbraco').controller("Umbraco.PropertyEditors.textAreaController", textAreaController);
+function textboxController($scope) {
+
+    // macro parameter editor doesn't contains a config object,
+    // so we create a new one to hold any properties 
+    if (!$scope.model.config) {
+        $scope.model.config = {};
+    }
+
+    if (!$scope.model.config.maxChars) {
+        $scope.model.config.maxChars = false;
+    }
+
+    $scope.model.maxlength = false;
+    if($scope.model.config.maxChars) {
+        $scope.model.maxlength = true;
+        if($scope.model.value == undefined) {
+            $scope.model.count = ($scope.model.config.maxChars * 1);
+        } else {
+            $scope.model.count = ($scope.model.config.maxChars * 1) - $scope.model.value.length;
+        }
+    }
+
+    $scope.model.change = function() {
+        if($scope.model.config.maxChars) {
+            if($scope.model.value == undefined) {
+                $scope.model.count = ($scope.model.config.maxChars * 1);
+            } else {
+                $scope.model.count = ($scope.model.config.maxChars * 1) - $scope.model.value.length;
+            }
+            if($scope.model.count < 0) {
+                $scope.model.value = $scope.model.value.substring(0, ($scope.model.config.maxChars * 1));
+                $scope.model.count = 0;
+            }
+        }
+    }
+}
+angular.module('umbraco').controller("Umbraco.PropertyEditors.textboxController", textboxController);
 angular.module('umbraco').controller("Umbraco.PropertyEditors.UrlListController",
 	function($rootScope, $scope, $filter) {
 
