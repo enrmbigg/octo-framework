@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OctoFramework</RootNamespace>
     <AssemblyName>OctoFramework</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -22,6 +22,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -126,11 +127,11 @@
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeAnalysis, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.1.0.0\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
+    <Reference Include="Microsoft.CodeAnalysis, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.2.3.2\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.1.0.0\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.2.3.2\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -179,24 +180,69 @@
     <Reference Include="SQLCE4Umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.7.2\lib\net45\SQLCE4Umbraco.dll</HintPath>
     </Reference>
-    <Reference Include="System.Collections.Immutable, Version=1.1.36.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
     </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.4.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.FileVersionInfo.4.3.0\lib\net46\System.Diagnostics.FileVersionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.StackTrace.4.3.0\lib\net46\System.Diagnostics.StackTrace.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reflection.Metadata, Version=1.0.21.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reflection.Metadata.1.0.21\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection.Metadata, Version=1.4.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.5.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net46\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net46\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.4.3.0\lib\net46\System.Text.Encoding.CodePages.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -204,8 +250,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -231,13 +275,25 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.XmlDocument.4.3.0\lib\net46\System.Xml.XmlDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.XPath.4.3.0\lib\net46\System.Xml.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.XPath.XDocument.4.3.0\lib\net46\System.Xml.XPath.XDocument.dll</HintPath>
+    </Reference>
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\packages\UmbracoCms.Core.7.7.2\lib\net45\TidyNet.dll</HintPath>
     </Reference>
@@ -296,6 +352,184 @@
     <Content Include="App_Plugins\UrlPicker\views\default.type.html" />
     <Content Include="App_Plugins\UrlPicker\views\url.picker.html" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="assets\img\logo-white.png" />
+    <Content Include="assets\img\logo.png" />
+    <Content Include="assets\img\overlay.png" />
+    <Content Include="assets\js\components\carousel.js" />
+    <Content Include="assets\js\components\masonryGrid.js" />
+    <Content Include="assets\js\components\mobileNavigation.js" />
+    <Content Include="assets\js\components\scrollLink.js" />
+    <Content Include="assets\js\dist\bloc.js" />
+    <Content Include="assets\js\dist\bloc.min.js" />
+    <Content Include="assets\js\dist\bundle.js" />
+    <Content Include="assets\js\dist\bundle.min.js" />
+    <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\normalizeElementHeights.js" />
+    <Content Include="assets\js\react\index.jsx" />
+    <Content Include="assets\styles\css\bloc.css" />
+    <Content Include="assets\styles\css\bloc.min.css" />
+    <Content Include="assets\styles\css\components\video.css" />
+    <Content Include="assets\styles\css\components\video.min.css" />
+    <Content Include="assets\styles\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\vendor\babel-polyfill\browser.js" />
+    <Content Include="assets\vendor\babel-polyfill\dist\polyfill.js" />
+    <Content Include="assets\vendor\babel-polyfill\dist\polyfill.min.js" />
+    <Content Include="assets\vendor\babel-polyfill\lib\index.js" />
+    <Content Include="assets\vendor\babel-polyfill\scripts\postpublish.js" />
+    <Content Include="assets\vendor\babel-polyfill\scripts\prepublish.js" />
+    <Content Include="assets\vendor\csstyle\.gitignore" />
+    <Content Include="assets\vendor\csstyle\csstyle.js" />
+    <Content Include="assets\vendor\csstyle\Gruntfile.js" />
+    <Content Include="assets\vendor\csstyle\site\common\fonts\icomoon.svg" />
+    <Content Include="assets\vendor\csstyle\site\common\images\csstyle.png" />
+    <Content Include="assets\vendor\csstyle\site\common\images\favicon-160x160.png" />
+    <Content Include="assets\vendor\csstyle\site\common\images\favicon-16x16.png" />
+    <Content Include="assets\vendor\csstyle\site\common\images\favicon-196x196.png" />
+    <Content Include="assets\vendor\csstyle\site\common\images\favicon-32x32.png" />
+    <Content Include="assets\vendor\csstyle\site\common\images\favicon-96x96.png" />
+    <Content Include="assets\vendor\csstyle\site\common\images\favicon.png" />
+    <Content Include="assets\vendor\csstyle\site\common\js\example.js" />
+    <Content Include="assets\vendor\csstyle\site\common\js\jquery.js" />
+    <Content Include="assets\vendor\csstyle\site\common\js\typing.js" />
+    <Content Include="assets\vendor\csstyle\site\error.html" />
+    <Content Include="assets\vendor\csstyle\site\index.html" />
+    <Content Include="assets\vendor\csstyle\site\site.css" />
+    <Content Include="assets\vendor\csstyle\spec\csstyle-spec.js" />
+    <Content Include="assets\vendor\csstyle\spec\selector-helper.js" />
+    <Content Include="assets\vendor\csstyle\spec\setup-spec.js" />
+    <Content Include="assets\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="assets\vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="assets\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\vendor\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="assets\vendor\isotope\dist\isotope.pkgd.js" />
+    <Content Include="assets\vendor\isotope\dist\isotope.pkgd.min.js" />
+    <Content Include="assets\vendor\isotope\gulpfile.js" />
+    <Content Include="assets\vendor\isotope\js\isotope.js" />
+    <Content Include="assets\vendor\isotope\js\item.js" />
+    <Content Include="assets\vendor\isotope\js\layout-mode.js" />
+    <Content Include="assets\vendor\isotope\js\layout-modes\fit-rows.js" />
+    <Content Include="assets\vendor\isotope\js\layout-modes\masonry.js" />
+    <Content Include="assets\vendor\isotope\js\layout-modes\vertical.js" />
+    <Content Include="assets\vendor\jquery\AUTHORS.txt" />
+    <Content Include="assets\vendor\jquery\dist\core.js" />
+    <Content Include="assets\vendor\jquery\dist\jquery.js" />
+    <Content Include="assets\vendor\jquery\dist\jquery.min.js" />
+    <Content Include="assets\vendor\jquery\dist\jquery.slim.js" />
+    <Content Include="assets\vendor\jquery\dist\jquery.slim.min.js" />
+    <Content Include="assets\vendor\jquery\external\sizzle\dist\sizzle.js" />
+    <Content Include="assets\vendor\jquery\external\sizzle\dist\sizzle.min.js" />
+    <Content Include="assets\vendor\jquery\external\sizzle\LICENSE.txt" />
+    <Content Include="assets\vendor\jquery\LICENSE.txt" />
+    <Content Include="assets\vendor\jquery\src\ajax.js" />
+    <Content Include="assets\vendor\jquery\src\ajax\jsonp.js" />
+    <Content Include="assets\vendor\jquery\src\ajax\load.js" />
+    <Content Include="assets\vendor\jquery\src\ajax\parseXML.js" />
+    <Content Include="assets\vendor\jquery\src\ajax\script.js" />
+    <Content Include="assets\vendor\jquery\src\ajax\var\location.js" />
+    <Content Include="assets\vendor\jquery\src\ajax\var\nonce.js" />
+    <Content Include="assets\vendor\jquery\src\ajax\var\rquery.js" />
+    <Content Include="assets\vendor\jquery\src\ajax\xhr.js" />
+    <Content Include="assets\vendor\jquery\src\attributes.js" />
+    <Content Include="assets\vendor\jquery\src\attributes\attr.js" />
+    <Content Include="assets\vendor\jquery\src\attributes\classes.js" />
+    <Content Include="assets\vendor\jquery\src\attributes\prop.js" />
+    <Content Include="assets\vendor\jquery\src\attributes\support.js" />
+    <Content Include="assets\vendor\jquery\src\attributes\val.js" />
+    <Content Include="assets\vendor\jquery\src\callbacks.js" />
+    <Content Include="assets\vendor\jquery\src\core.js" />
+    <Content Include="assets\vendor\jquery\src\core\access.js" />
+    <Content Include="assets\vendor\jquery\src\core\DOMEval.js" />
+    <Content Include="assets\vendor\jquery\src\core\init.js" />
+    <Content Include="assets\vendor\jquery\src\core\parseHTML.js" />
+    <Content Include="assets\vendor\jquery\src\core\ready-no-deferred.js" />
+    <Content Include="assets\vendor\jquery\src\core\ready.js" />
+    <Content Include="assets\vendor\jquery\src\core\readyException.js" />
+    <Content Include="assets\vendor\jquery\src\core\stripAndCollapse.js" />
+    <Content Include="assets\vendor\jquery\src\core\support.js" />
+    <Content Include="assets\vendor\jquery\src\core\var\rsingleTag.js" />
+    <Content Include="assets\vendor\jquery\src\css.js" />
+    <Content Include="assets\vendor\jquery\src\css\addGetHookIf.js" />
+    <Content Include="assets\vendor\jquery\src\css\adjustCSS.js" />
+    <Content Include="assets\vendor\jquery\src\css\curCSS.js" />
+    <Content Include="assets\vendor\jquery\src\css\hiddenVisibleSelectors.js" />
+    <Content Include="assets\vendor\jquery\src\css\showHide.js" />
+    <Content Include="assets\vendor\jquery\src\css\support.js" />
+    <Content Include="assets\vendor\jquery\src\css\var\cssExpand.js" />
+    <Content Include="assets\vendor\jquery\src\css\var\getStyles.js" />
+    <Content Include="assets\vendor\jquery\src\css\var\isHiddenWithinTree.js" />
+    <Content Include="assets\vendor\jquery\src\css\var\rmargin.js" />
+    <Content Include="assets\vendor\jquery\src\css\var\rnumnonpx.js" />
+    <Content Include="assets\vendor\jquery\src\css\var\swap.js" />
+    <Content Include="assets\vendor\jquery\src\data.js" />
+    <Content Include="assets\vendor\jquery\src\data\Data.js" />
+    <Content Include="assets\vendor\jquery\src\data\var\acceptData.js" />
+    <Content Include="assets\vendor\jquery\src\data\var\dataPriv.js" />
+    <Content Include="assets\vendor\jquery\src\data\var\dataUser.js" />
+    <Content Include="assets\vendor\jquery\src\deferred.js" />
+    <Content Include="assets\vendor\jquery\src\deferred\exceptionHook.js" />
+    <Content Include="assets\vendor\jquery\src\deprecated.js" />
+    <Content Include="assets\vendor\jquery\src\dimensions.js" />
+    <Content Include="assets\vendor\jquery\src\effects.js" />
+    <Content Include="assets\vendor\jquery\src\effects\animatedSelector.js" />
+    <Content Include="assets\vendor\jquery\src\effects\Tween.js" />
+    <Content Include="assets\vendor\jquery\src\event.js" />
+    <Content Include="assets\vendor\jquery\src\event\ajax.js" />
+    <Content Include="assets\vendor\jquery\src\event\alias.js" />
+    <Content Include="assets\vendor\jquery\src\event\focusin.js" />
+    <Content Include="assets\vendor\jquery\src\event\support.js" />
+    <Content Include="assets\vendor\jquery\src\event\trigger.js" />
+    <Content Include="assets\vendor\jquery\src\exports\amd.js" />
+    <Content Include="assets\vendor\jquery\src\exports\global.js" />
+    <Content Include="assets\vendor\jquery\src\jquery.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\buildFragment.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\getAll.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\setGlobalEval.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\support.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\var\rcheckableType.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\var\rscriptType.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\var\rtagName.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\wrapMap.js" />
+    <Content Include="assets\vendor\jquery\src\manipulation\_evalUrl.js" />
+    <Content Include="assets\vendor\jquery\src\offset.js" />
+    <Content Include="assets\vendor\jquery\src\queue.js" />
+    <Content Include="assets\vendor\jquery\src\queue\delay.js" />
+    <Content Include="assets\vendor\jquery\src\selector-native.js" />
+    <Content Include="assets\vendor\jquery\src\selector-sizzle.js" />
+    <Content Include="assets\vendor\jquery\src\selector.js" />
+    <Content Include="assets\vendor\jquery\src\serialize.js" />
+    <Content Include="assets\vendor\jquery\src\traversing.js" />
+    <Content Include="assets\vendor\jquery\src\traversing\findFilter.js" />
+    <Content Include="assets\vendor\jquery\src\traversing\var\dir.js" />
+    <Content Include="assets\vendor\jquery\src\traversing\var\rneedsContext.js" />
+    <Content Include="assets\vendor\jquery\src\traversing\var\siblings.js" />
+    <Content Include="assets\vendor\jquery\src\var\arr.js" />
+    <Content Include="assets\vendor\jquery\src\var\class2type.js" />
+    <Content Include="assets\vendor\jquery\src\var\concat.js" />
+    <Content Include="assets\vendor\jquery\src\var\document.js" />
+    <Content Include="assets\vendor\jquery\src\var\documentElement.js" />
+    <Content Include="assets\vendor\jquery\src\var\fnToString.js" />
+    <Content Include="assets\vendor\jquery\src\var\getProto.js" />
+    <Content Include="assets\vendor\jquery\src\var\hasOwn.js" />
+    <Content Include="assets\vendor\jquery\src\var\indexOf.js" />
+    <Content Include="assets\vendor\jquery\src\var\ObjectFunctionString.js" />
+    <Content Include="assets\vendor\jquery\src\var\pnum.js" />
+    <Content Include="assets\vendor\jquery\src\var\push.js" />
+    <Content Include="assets\vendor\jquery\src\var\rcssNum.js" />
+    <Content Include="assets\vendor\jquery\src\var\rnothtmlwhite.js" />
+    <Content Include="assets\vendor\jquery\src\var\slice.js" />
+    <Content Include="assets\vendor\jquery\src\var\support.js" />
+    <Content Include="assets\vendor\jquery\src\var\toString.js" />
+    <Content Include="assets\vendor\jquery\src\wrap.js" />
+    <Content Include="assets\vendor\polyfill\browser-polyfill.min.js" />
+    <Content Include="assets\vendor\slick\ajax-loader.gif" />
+    <Content Include="assets\vendor\slick\fonts\slick.svg" />
+    <Content Include="assets\vendor\slick\slick-theme.css" />
+    <Content Include="assets\vendor\slick\slick.css" />
+    <Content Include="assets\vendor\slick\slick.js" />
+    <Content Include="assets\vendor\slick\slick.min.js" />
+    <Content Include="assets\vendor\three.js\three.js" />
+    <Content Include="assets\vendor\three.js\three.min.js" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -317,6 +551,7 @@
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="gulpfile.js" />
     <Content Include="packages.config" />
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
@@ -338,7 +573,6 @@
     <Content Include="Views\NotFound.cshtml" />
     <Content Include="Views\Partials\_footer.cshtml" />
     <Content Include="Views\Partials\_header.cshtml" />
-    <Content Include="Views\Partials\_svg-logo.cshtml" />
     <Content Include="Views\Search.cshtml" />
     <Content Include="Views\StandardPage.cshtml" />
     <Content Include="Views\TextFile.cshtml" />
@@ -375,6 +609,171 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
+    <Content Include="assets\fonts\.gitkeep" />
+    <Content Include="assets\fonts\InteloBold.eot" />
+    <Content Include="assets\fonts\InteloBold.ttf" />
+    <Content Include="assets\fonts\InteloItalic.eot" />
+    <Content Include="assets\fonts\InteloItalic.ttf" />
+    <Content Include="assets\fonts\InteloRegular.eot" />
+    <Content Include="assets\fonts\InteloRegular.ttf" />
+    <Content Include="assets\js\dist\.DS_Store" />
+    <Content Include="assets\manifest.json" />
+    <Content Include="assets\styles\scss\bloc.scss" />
+    <Content Include="assets\styles\scss\components\.DS_Store" />
+    <Content Include="assets\styles\scss\components\_body.scss" />
+    <Content Include="assets\styles\scss\components\_breadcrumbs.scss" />
+    <Content Include="assets\styles\scss\components\_button.scss" />
+    <Content Include="assets\styles\scss\components\_carousel.scss" />
+    <Content Include="assets\styles\scss\components\_container.scss" />
+    <Content Include="assets\styles\scss\components\_content-container.scss" />
+    <Content Include="assets\styles\scss\components\_footer-content.scss" />
+    <Content Include="assets\styles\scss\components\_footer.scss" />
+    <Content Include="assets\styles\scss\components\_header.scss" />
+    <Content Include="assets\styles\scss\components\_hidden-label.scss" />
+    <Content Include="assets\styles\scss\components\_horizontal-cards.scss" />
+    <Content Include="assets\styles\scss\components\_iframe.scss" />
+    <Content Include="assets\styles\scss\components\_intro-section-image.scss" />
+    <Content Include="assets\styles\scss\components\_intro-section-video.scss" />
+    <Content Include="assets\styles\scss\components\_masonry-grid.scss" />
+    <Content Include="assets\styles\scss\components\_rich-text-editor.scss" />
+    <Content Include="assets\styles\scss\components\_scroll-link.scss" />
+    <Content Include="assets\styles\scss\components\_skip-link.scss" />
+    <Content Include="assets\styles\scss\components\_svg-logo.scss" />
+    <Content Include="assets\styles\scss\components\_vertical-cards.scss" />
+    <Content Include="assets\styles\scss\components\_video.scss" />
+    <Content Include="assets\styles\scss\config\_fonts.scss" />
+    <Content Include="assets\styles\scss\config\_reset.scss" />
+    <Content Include="assets\styles\scss\config\_typography.scss" />
+    <Content Include="assets\styles\scss\config\_variables.scss" />
+    <Content Include="assets\styles\scss\helpers\_clearfix.scss" />
+    <Content Include="assets\styles\scss\mixins\_breakpoint.scss" />
+    <Content Include="assets\styles\scss\mixins\_font-size.scss" />
+    <Content Include="assets\styles\scss\mixins\_rgba-overlay.scss" />
+    <Content Include="assets\styles\scss\mixins\_rgba.scss" />
+    <Content Include="assets\styles\scss\mixins\_transition.scss" />
+    <Content Include="assets\vendor\babel-polyfill\.npmignore" />
+    <Content Include="assets\vendor\babel-polyfill\package.json" />
+    <Content Include="assets\vendor\babel-polyfill\README.md" />
+    <Content Include="assets\vendor\babel-polyfill\scripts\build-dist.sh" />
+    <Content Include="assets\vendor\csstyle\.npmignore" />
+    <Content Include="assets\vendor\csstyle\bower.json" />
+    <Content Include="assets\vendor\csstyle\CONTRIBUTING.md" />
+    <Content Include="assets\vendor\csstyle\csstyle.scss" />
+    <Content Include="assets\vendor\csstyle\LICENSE.md" />
+    <Content Include="assets\vendor\csstyle\package.json" />
+    <Content Include="assets\vendor\csstyle\README.md" />
+    <Content Include="assets\vendor\csstyle\site\common\base\_base.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\base\_icomoon.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\base\_mixins.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\base\_reset.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\base\_variables.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\fonts\2BB4FD_0_0.eot" />
+    <Content Include="assets\vendor\csstyle\site\common\fonts\2BB4FD_0_0.ttf" />
+    <Content Include="assets\vendor\csstyle\site\common\fonts\2BB4FD_0_0.woff" />
+    <Content Include="assets\vendor\csstyle\site\common\fonts\icomoon.eot" />
+    <Content Include="assets\vendor\csstyle\site\common\fonts\icomoon.ttf" />
+    <Content Include="assets\vendor\csstyle\site\common\fonts\icomoon.woff" />
+    <Content Include="assets\vendor\csstyle\site\common\styles\_ace_editor.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\styles\_button.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\styles\_css.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\styles\_logo.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\styles\_section.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\styles\_tagline.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\styles\_tryit.scss" />
+    <Content Include="assets\vendor\csstyle\site\common\styles\_tweaks.scss" />
+    <Content Include="assets\vendor\csstyle\site\site.scss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\component.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\location.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\nested-multiple-pseudo.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\option.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\parent-reference.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\part-nested-multiple-pseudo.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\part-parent-reference.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\part.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\parts-in-options.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\parts-in-parts.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\tweak.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\postcss\fixtures\untouched.pcss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\component.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\custom-symbols.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\location.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\nested-multiple-pseudo.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\option.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\parent-reference.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\part-nested-multiple-pseudo.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\part-parent-reference.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\part.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\parts-in-options.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\parts-in-parts.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\tweak.scss" />
+    <Content Include="assets\vendor\csstyle\spec\scss\fixtures\untouched.scss" />
+    <Content Include="assets\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="assets\vendor\font-awesome\less\animated.less" />
+    <Content Include="assets\vendor\font-awesome\less\bordered-pulled.less" />
+    <Content Include="assets\vendor\font-awesome\less\core.less" />
+    <Content Include="assets\vendor\font-awesome\less\fixed-width.less" />
+    <Content Include="assets\vendor\font-awesome\less\font-awesome.less" />
+    <Content Include="assets\vendor\font-awesome\less\icons.less" />
+    <Content Include="assets\vendor\font-awesome\less\larger.less" />
+    <Content Include="assets\vendor\font-awesome\less\list.less" />
+    <Content Include="assets\vendor\font-awesome\less\mixins.less" />
+    <Content Include="assets\vendor\font-awesome\less\path.less" />
+    <Content Include="assets\vendor\font-awesome\less\rotated-flipped.less" />
+    <Content Include="assets\vendor\font-awesome\less\screen-reader.less" />
+    <Content Include="assets\vendor\font-awesome\less\stacked.less" />
+    <Content Include="assets\vendor\font-awesome\less\variables.less" />
+    <Content Include="assets\vendor\font-awesome\scss\font-awesome.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_animated.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_core.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_icons.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_larger.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_list.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_mixins.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_path.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_stacked.scss" />
+    <Content Include="assets\vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="assets\vendor\isotope\.bower.json" />
+    <Content Include="assets\vendor\isotope\bower.json" />
+    <Content Include="assets\vendor\isotope\README.md" />
+    <Content Include="assets\vendor\jquery\.bower.json" />
+    <Content Include="assets\vendor\jquery\bower.json" />
+    <Content Include="assets\vendor\jquery\dist\jquery.min.map" />
+    <Content Include="assets\vendor\jquery\dist\jquery.slim.min.map" />
+    <Content Include="assets\vendor\jquery\external\sizzle\dist\sizzle.min.map" />
+    <Content Include="assets\vendor\jquery\README.md" />
+    <Content Include="assets\vendor\jquery\src\.eslintrc.json" />
+    <Content Include="assets\vendor\slick\config.rb" />
+    <Content Include="assets\vendor\slick\fonts\slick.eot" />
+    <Content Include="assets\vendor\slick\fonts\slick.ttf" />
+    <Content Include="assets\vendor\slick\fonts\slick.woff" />
+    <Content Include="assets\vendor\slick\slick-theme.less" />
+    <Content Include="assets\vendor\slick\slick-theme.scss" />
+    <Content Include="assets\vendor\slick\slick.less" />
+    <Content Include="assets\vendor\slick\slick.scss" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include=".babelrc" />
+    <Content Include=".bowerrc" />
+    <Content Include="webpack.config.js" />
+    <Content Include="webpack.production.config.js" />
+    <Content Include="Views\Partials\_introSectionImage.cshtml" />
+    <Content Include="Views\Partials\_verticalCards.cshtml" />
+    <Content Include="Views\Partials\_carousel.cshtml" />
+    <Content Include="Views\Partials\_horizontalCards.cshtml" />
+    <Content Include="Views\Partials\_richTextEditor.cshtml" />
+    <Content Include="assets\styles\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\styles\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\styles\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\styles\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\styles\fonts\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -391,10 +790,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Views\MacroPartials\" />
   </ItemGroup>
   <ItemGroup>
@@ -402,6 +797,10 @@
       <Project>{20c8adcf-d714-43e6-aabb-8185529e9ba1}</Project>
       <Name>OctoFramework.Logic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
