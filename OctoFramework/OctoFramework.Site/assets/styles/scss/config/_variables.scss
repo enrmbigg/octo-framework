@@ -1,0 +1,51 @@
+ /*************************************************|
+| Breakpoints                                     |
+*************************************************/
+
+$mobile                            : 320px;
+$tablet                            : 560px;
+$landscapetablet                   : 960px;
+$desktop                           : 1260px;
+
+/*************************************************|
+| Colours                                         |
+*************************************************/
+
+$white                         	  : #fff;
+$black							  : #000;
+$palette_a                        : #EA2533;
+$palette_b                        : #4A75E6;
+$palette_c                        : #FEBC1F;
+$palette_d                        : #4470E6;
+$palette_e                        : #08AF22;
+
+/*************************************************|
+| Font Settings - sizes in px                     |
+*************************************************/
+
+$basefont                          : 'InteloRegular', sans-serif;
+$boldfont                          : 'InteloBold', sans-serif;
+$displayfont                       : 'InteloRegular', sans-serif;
+$italicfont                        : 'InteloItalic', sans-serif;
+$numberfont                        : 'InteloRegular', sans-serif;
+
+$basefontsize                      : 16;
+$lineheight                        : 20;
+$headersizes                       : 3, 2.25, 1.5, 1.313, 1.125, 1;
+$headermargins                     : 0.563, 0.625, 1.313, 1.313, 1.313, 0.75;
+
+$basefontcolor                     : $black;
+
+/*************************************************|
+| Container Variables                             |
+*************************************************/
+
+$max-width                         : 1400px;
+$basepadding__mobile               : 14px;
+$basepadding                       : 28px;
+$largepadding                      : 1.8em;
+
+/*************************************************|
+| Transition Times                                |
+*************************************************/
+$transition_time                   : 0.3s;

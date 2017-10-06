@@ -1,15 +1,15 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<MasterViewModel>
-
 @{
-    Layout = null;
+    Layout = null;    
 }
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/assets/styles/css/bloc.min.css" rel="stylesheet" />
     @if (Model.SEO != null)
     {
-        <title>@Model.SEO.Title | Project Bloc</title>
+        <title>@Model.SEO.Title | OctoFramework</title>
             <meta name="description" content="@Model.SEO.Description">
             <meta name="keywords" content="@Model.SEO.Tags">
         if (!string.IsNullOrWhiteSpace(Model.SEO.Index))
@@ -17,12 +17,18 @@
             <meta name="robots" content="@Model.SEO.Index">
         }
     }
+    
 </head>
 <body>
+    <a href="#content" class="skip-link">
+        Skip to main content
+    </a>
     @Html.Partial("_header", Model.Content)
     <div>
         @RenderBody()
     </div>
     @Html.Partial("_footer", Model.Content)
+    <script src="~/assets/js/dist/bloc.js"></script>
+    <script src="~/assets/js/dist/bundle.js"></script>
 </body>
 </html>

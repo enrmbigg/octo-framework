@@ -1,0 +1,21 @@
+@mixin htags($factor: 1) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $basefont;
+    font-weight: normal;
+  }
+  @for $i from 1 through 6 {
+    h#{$i} {
+      $value: nth($headersizes, $i);
+      $size: if(($value * $factor) < 1, 1, $value * $factor);
+      font-size: $size * 1em;
+      margin-bottom: (nth($headermargins, $i) * 1em);
+    }
+  }
+}
+
+@include htags(1);

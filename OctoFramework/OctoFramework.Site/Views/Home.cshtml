@@ -2,3 +2,11 @@
 @{
     Layout = "Master.cshtml";
 }
+
+@Html.Partial("_introSectionImage")
+<div id="content" class="content-container">
+    @Html.Partial("_horizontalCards")
+    @Html.Partial("_verticalCards")
+    @Html.Partial("_carousel")
+    @Html.Partial("_richTextEditor")
+</div>

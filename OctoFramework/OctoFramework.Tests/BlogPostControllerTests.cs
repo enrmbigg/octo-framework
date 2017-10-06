@@ -6,8 +6,6 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using OctoFramework.Logic.Controllers;
 using OctoFramework.Logic.Models.ViewModels;
-using System.Globalization;
-using Umbraco.Web.Models;
 using System;
 
 namespace OctoFramework.Tests
