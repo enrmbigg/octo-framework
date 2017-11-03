@@ -6,7 +6,7 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Web;
 
-namespace OctoFramework.Logic.Converters
+namespace OctoFramework.Logic.PropertyConverters
 {
     /// <summary>
     /// Summary description for E360 UrlPicker
@@ -14,7 +14,7 @@ namespace OctoFramework.Logic.Converters
 
     public class UrlPicker
     {
-        public UrlPicker.UrlPickerTypes Type { get; set; }
+        public UrlPickerTypes Type { get; set; }
 
         public Meta Meta { get; set; }
 
@@ -61,7 +61,7 @@ namespace OctoFramework.Logic.Converters
 
         public string LinkTitle { get; set; }
 
-        public string LinkURL { get; set; }
+        public string LinkUrl { get; set; }
 
         public string LinkTarget { get; set; }
 
@@ -75,7 +75,7 @@ namespace OctoFramework.Logic.Converters
         {
             LinkCaption = string.Empty;
             LinkTitle = string.Empty;
-            LinkURL = string.Empty;
+            LinkUrl = string.Empty;
             LinkTarget = string.Empty;
             LinkIcon = string.Empty;
             LinkUmbracoNode = null;
@@ -86,7 +86,7 @@ namespace OctoFramework.Logic.Converters
     [PropertyValueCache(PropertyCacheValue.All, PropertyCacheLevel.Content)]
     public class UrlPickerValueConverter : PropertyValueConverterBase
     {
-        internal readonly UmbracoHelper umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
+        internal readonly UmbracoHelper UmbracoHelper = new UmbracoHelper(UmbracoContext.Current);
 
         public override bool IsConverter(PublishedPropertyType propertyType)
         {
@@ -110,9 +110,9 @@ namespace OctoFramework.Logic.Converters
                 UrlPicker urlPicker = JsonConvert.DeserializeObject<UrlPicker>(input);
 
                 if (urlPicker.TypeData.ContentId.HasValue)
-                    urlPicker.TypeData.Content = umbracoHelper.TypedContent(urlPicker.TypeData.ContentId);
+                    urlPicker.TypeData.Content = UmbracoHelper.TypedContent(urlPicker.TypeData.ContentId);
                 if (urlPicker.TypeData.MediaId.HasValue)
-                    urlPicker.TypeData.Media = umbracoHelper.TypedMedia(urlPicker.TypeData.MediaId);
+                    urlPicker.TypeData.Media = UmbracoHelper.TypedMedia(urlPicker.TypeData.MediaId);
                 switch (urlPicker.Type)
                 {
                     case UrlPicker.UrlPickerTypes.Content:
@@ -120,7 +120,6 @@ namespace OctoFramework.Logic.Converters
                         {
                             urlPicker.Url = urlPicker.TypeData.Content.Url;
                             urlPicker.Name = string.IsNullOrWhiteSpace(urlPicker.Meta.Title) ? urlPicker.TypeData.Content.Name : urlPicker.Meta.Title;
-                            break;
                         }
                         break;
 
@@ -129,7 +128,6 @@ namespace OctoFramework.Logic.Converters
                         {
                             urlPicker.Url = urlPicker.TypeData.Media.Url;
                             urlPicker.Name = string.IsNullOrWhiteSpace(urlPicker.Meta.Title) ? urlPicker.TypeData.Media.Name : urlPicker.Meta.Title;
-                            break;
                         }
                         break;
 
@@ -138,7 +136,6 @@ namespace OctoFramework.Logic.Converters
                         {
                             urlPicker.Url = "mailto:" + urlPicker.TypeData.Email;
                             urlPicker.Name = string.IsNullOrWhiteSpace(urlPicker.Meta.Title) ? urlPicker.TypeData.Email : urlPicker.Meta.Title;
-                            break;
                         }
                         break;
 

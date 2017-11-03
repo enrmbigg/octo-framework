@@ -38,8 +38,8 @@ namespace OctoFramework.Logic.Utilities
             )
         {
             return cropDataSet.GetCropUrl(
-                width: width,
-                height: height,
+                width,
+                height,
                 quality: 90,
                 ratioMode: ImageCropRatioMode.Height,
                 furtherOptions: "&slimmage=true"
@@ -205,8 +205,6 @@ namespace OctoFramework.Logic.Utilities
 
         #endregion ImageCropDataSet - Methods
 
-
-
         #region IContent - Methods
 
         #region Node
@@ -294,9 +292,9 @@ namespace OctoFramework.Logic.Utilities
                         emailFields.Body,
                         emailFields.CcEmail,
                         emailFields.BccEmail,
-                        emailType: emailType,
-                        addFiles: addFiles,
-                        attachments: attachments
+                        emailType,
+                        addFiles,
+                        attachments
                         );
                 }
             }
@@ -536,15 +534,15 @@ namespace OctoFramework.Logic.Utilities
             try
             {
                 int nodeId = -1;
-                if (System.Web.HttpContext.Current.Items["pageID"] != null)
+                if (HttpContext.Current.Items["pageID"] != null)
                 {
-                    int.TryParse(System.Web.HttpContext.Current.Items["pageID"].ToString(), out nodeId);
+                    int.TryParse(HttpContext.Current.Items["pageID"].ToString(), out nodeId);
                 }
 
                 StringBuilder comment = new StringBuilder();
                 StringBuilder commentHtml = new StringBuilder();
 
-                commentHtml.AppendFormat("<p><strong>Url:</strong><br/>{0}</p>", System.Web.HttpContext.Current.Request.Url.AbsoluteUri);
+                commentHtml.AppendFormat("<p><strong>Url:</strong><br/>{0}</p>", HttpContext.Current.Request.Url.AbsoluteUri);
                 commentHtml.AppendFormat("<p><strong>Node id:</strong><br/>{0}</p>", nodeId);
 
                 //Add the exception.

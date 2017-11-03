@@ -16,28 +16,25 @@ namespace OctoFramework.Logic.Controllers
         //Constructors
         public DefaultController()
         {
-            this.Context = UmbracoContext.Current;
+            Context = UmbracoContext.Current;
         }
 
         public DefaultController(UmbracoContext context) : base(context)
         {
-            this.Context = context;
+            Context = context;
         }
 
         public DefaultController(UmbracoContext context, UmbracoHelper helper) : base(context, helper)
         {
-            this.Context = context;
-            this._umbraco = helper;
+            Context = context;
+            _umbraco = helper;
         }
 
-        protected UmbracoContext Context { get; private set; }
+        protected UmbracoContext Context { get; }
 
         private readonly UmbracoHelper _umbraco;
 
-        public override UmbracoHelper Umbraco
-        {
-            get { return this._umbraco ?? base.Umbraco; }
-        }
+        public override UmbracoHelper Umbraco => _umbraco ?? base.Umbraco;
 
         /// <summary>
         /// If the route hijacking doesn't find a controller this default controller will be used.
@@ -71,6 +68,7 @@ namespace OctoFramework.Logic.Controllers
 
             //Clear the cache if an error occurs.
             var cacheManager = new OutputCacheManager();
+
             cacheManager.RemoveItems();
 
             //Show the view error.

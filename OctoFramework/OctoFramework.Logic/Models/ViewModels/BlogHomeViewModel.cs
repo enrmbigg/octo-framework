@@ -7,7 +7,7 @@ using Umbraco.Web.Models;
 
 namespace OctoFramework.Logic.Models.ViewModels
 {
-    public partial class BlogHomeViewModel : MasterViewModel
+    public class BlogHomeViewModel : MasterViewModel
     {
         public BlogHomeViewModel(IPublishedContent content) : base(content)
         {
@@ -19,7 +19,7 @@ namespace OctoFramework.Logic.Models.ViewModels
         public IEnumerable<BlogPostViewModel> PagedBlogPosts(int page, string query, int pageSize = 10)
         {
             var posts = query == null ?
-                this.BlogPosts
+                BlogPosts
                 : Umbraco.TagQuery.GetContentByTag(query).OrderByDescending(x => x.GetPropertyValue<DateTime>("createTime")).Select(x => new BlogPostViewModel(x));
             var resultsToSkip = page > 0 ? (page - 1) * pageSize : 0;
             var resultSet = posts.Skip(resultsToSkip)

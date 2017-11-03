@@ -1,6 +1,6 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<MasterViewModel>
+﻿@inherits UmbracoViewPage<MasterViewModel>
 @{
-    Layout = null;    
+    Layout = null;
 }
 <!DOCTYPE html>
 <html>
@@ -10,14 +10,13 @@
     @if (Model.SEO != null)
     {
         <title>@Model.SEO.Title | OctoFramework</title>
-            <meta name="description" content="@Model.SEO.Description">
-            <meta name="keywords" content="@Model.SEO.Tags">
+        <meta name="description" content="@Model.SEO.Description">
+        <meta name="keywords" content="@Model.SEO.Tags">
         if (!string.IsNullOrWhiteSpace(Model.SEO.Index))
         {
             <meta name="robots" content="@Model.SEO.Index">
         }
     }
-    
 </head>
 <body>
     <a href="#content" class="skip-link">

@@ -26,7 +26,6 @@ let gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     webserver = require('gulp-webserver');
 
-
 let webpackConfig = require('./webpack.config.js'),
     bundler = webpackStatic(webpackConfig);
 
@@ -44,7 +43,7 @@ gulp.task('browser-sync', function () {
             middleware: [
                 webpackDevMiddleware(bundler, {
                     publicPath: webpackConfig.output.publicPath,
-                    stats: {colors: true}
+                    stats: { colors: true }
                     // http://webpack.github.io/docs/webpack-dev-middleware.html
                 }),
                 webpackHotMiddleware(bundler)
@@ -105,9 +104,8 @@ gulp.task('webserver', function () {
 
 // Compile Our Sass
 gulp.task('sass:compile', ['sass:lint'], function () {
-
     return gulp.src('assets/styles/scss/**/*.scss')
-        .pipe(plumber({errorHandler: errorAlert}))
+        .pipe(plumber({ errorHandler: errorAlert }))
         .pipe(sassGlobbing())
         .pipe(sass())
         .pipe(autoprefixer({
@@ -117,8 +115,8 @@ gulp.task('sass:compile', ['sass:lint'], function () {
         .pipe(gulp.dest('assets/styles/css/'))
         .pipe(browsersync.stream())
         .pipe(cssimport())
-        .pipe(cssmin({processImport: true}))
-        .pipe(rename({suffix: '.min'}))
+        .pipe(cssmin({ processImport: true }))
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('assets/styles/css'));
 });
 
@@ -133,7 +131,7 @@ gulp.task('scripts', ['lint'], function () {
         /** DO NOT PUT EXTERNAL LIBRARIES HERE PUT THEM IN THE concatExternalScripts FUNCTION **/
         'assets/js/*.js',
         'assets/js/components/*.js'])
-        .pipe(plumber({errorHandler: errorAlert}))
+        .pipe(plumber({ errorHandler: errorAlert }))
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -142,7 +140,7 @@ gulp.task('scripts', ['lint'], function () {
         .pipe(rename('bloc.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('assets/js/dist'))
-        .pipe(notify({message: "Javascript linted and compiled", title: "Compilation Successful"}))
+        .pipe(notify({ message: "Javascript linted and compiled", title: "Compilation Successful" }))
 });
 
 gulp.task('bundle:minify', function () {
@@ -160,10 +158,10 @@ gulp.task('webpack:build', function () {
     return gulp.src([
         'assets/js/react/**/*.js*'
     ])
-        .pipe(plumber({errorHandler: errorAlert}))
+        .pipe(plumber({ errorHandler: errorAlert }))
         .pipe(webpack(require('./webpack.production.config')))
         .pipe(gulp.dest('assets/js/dist'))
-        .pipe(notify({message: "React built"}))
+        .pipe(notify({ message: "React built" }))
 });
 
 gulp.task('scripts:concat-external:min', ['scripts'], concatExternalScripts(true));
@@ -183,8 +181,8 @@ function concatExternalScripts(min) {
             /** put your libraries here **/
             'assets/vendor/jquery/dist/jquery.min.js',
             'assets/vendor/slick/slick.js',
-            'assets/vendor/babel-polyfill/dist/polyfill.min.js',                        
-            'assets/vendor/isotope/dist/isotope.pkgd.js',            
+            'assets/vendor/babel-polyfill/dist/polyfill.min.js',
+            'assets/vendor/isotope/dist/isotope.pkgd.js',
             'assets/js/lib/**/*.js',
             'assets/js/dist/bloc' + (min ? '.min' : '') + '.js'
         ])
@@ -192,7 +190,6 @@ function concatExternalScripts(min) {
             .pipe(gulp.dest('assets/js/dist'));
     }
 }
-
 
 // Watch Files For Changes
 gulp.task('watch', function () {
@@ -207,7 +204,6 @@ gulp.task('watch', function () {
 // Default Task
 gulp.task('default', ['lint', 'sass:lint', 'sass:compile', 'scripts', 'scripts:concat-external:min', 'scripts:concat-external', 'fonts', 'watch', 'webpack:build', 'bundle:minify', 'browser-sync', 'webserver']);
 gulp.task('build', ['lint', 'sass:lint', 'sass:compile', 'scripts', 'scripts:concat-external:min', 'scripts:concat-external', 'fonts', 'webpack:build', 'bundle:minify']);
-
 
 function errorAlert(error) {
     console.log(error.toString());//Prints Error to Console

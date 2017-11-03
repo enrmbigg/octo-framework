@@ -20,17 +20,13 @@ namespace OctoFramework.Logic.HealthChecks.ClientDependency
             return new HealthCheckStatus("Unknown")
             {
                 ResultType = StatusResultType.Error,
-                Description = string.Format("Unknown Action {0}", action.Alias)
+                Description = $"Unknown Action {action.Alias}"
             };
         }
 
         public override IEnumerable<HealthCheckStatus> GetStatus()
         {
-            List<HealthCheckStatus> status = new List<HealthCheckStatus>();
-
-            status.Add(GetCdfVersion());
-
-            return status;
+            return new List<HealthCheckStatus> { GetCdfVersion() };
         }
 
         private HealthCheckStatus GetCdfVersion()
@@ -40,56 +36,50 @@ namespace OctoFramework.Logic.HealthChecks.ClientDependency
             xmlDocument.Load(path);
 
             var node = xmlDocument.SelectSingleNode("//clientDependency/@version");
-            if (node != null)
+            if (node == null) return new HealthCheckStatus("Failed to load cdf version");
+
+            if (!int.TryParse(node.Value, out var version))
+                return new HealthCheckStatus("Failed to load cdf version");
+            var message = $"CDF Version: {version}";
+
+            var status = new HealthCheckStatus(message)
             {
-                int version;
-
-                if (int.TryParse(node.Value, out version))
+                ResultType = StatusResultType.Info,
+                Description = $"The client dependency framework is running on version {version}, increment this number to generate a new set of cached files",
+                Actions = new List<HealthCheckAction>
                 {
-                    var message = string.Format("CDF Version: {0}", version);
-
-                    var status = new HealthCheckStatus(message)
+                    new HealthCheckAction("Increment", Id)
                     {
-                        ResultType = StatusResultType.Info,
-                        Description = string.Format("The client dependency framework is running on version {0}, increment this number to generate a new set of cached files", version),
-                        Actions = new List<HealthCheckAction>() {
-                            new HealthCheckAction("Increment", this.Id)
-                            {
-                                Name = "Increment"
-                            }
-                        }
-                    };
-                    return status;
+                        Name = "Increment"
+                    }
                 }
-            }
-
-            return new HealthCheckStatus("Failed to load cdf version");
+            };
+            return status;
         }
 
-        private HealthCheckStatus IncrementCdf()
+        private static HealthCheckStatus IncrementCdf()
         {
             var path = IOHelper.MapPath("~/config/clientdependency.config");
             var xmlDocument = new XmlDocument { PreserveWhitespace = true };
             xmlDocument.Load(path);
 
             var node = xmlDocument.SelectSingleNode("//clientDependency/@version");
-            if (node != null)
+            if (node == null)
             {
-                int version;
-                if (int.TryParse(node.Value, out version))
+                return new HealthCheckStatus("Failed")
                 {
-                    node.Value = (version + 1).ToString();
-                }
-
-                xmlDocument.Save(path);
-
-                return new HealthCheckStatus(string.Format("Incremented to {0}", version + 1));
+                    ResultType = StatusResultType.Error
+                };
             }
 
-            return new HealthCheckStatus("Failed")
+            if (int.TryParse(node.Value, out var version))
             {
-                ResultType = StatusResultType.Error
-            };
+                node.Value = (version + 1).ToString();
+            }
+
+            xmlDocument.Save(path);
+
+            return new HealthCheckStatus($"Incremented to {version + 1}");
         }
     }
 }

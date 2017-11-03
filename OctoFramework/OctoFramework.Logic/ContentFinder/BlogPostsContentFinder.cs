@@ -39,7 +39,7 @@ namespace OctoFramework.Logic.ContentFinder
 
                     //Split the url segments.
                     var path = contentRequest.Uri.GetAbsolutePathDecoded();
-                    var parts = path.Split(new[] { '/' }, System.StringSplitOptions.RemoveEmptyEntries);
+                    var parts = path.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
                     //The news items should contain 3 segments.
                     if (parts.Length == 3)
@@ -48,7 +48,7 @@ namespace OctoFramework.Logic.ContentFinder
                         var rootNodes = contentRequest.RoutingContext.UmbracoContext.ContentCache.GetAtRoot();
 
                         //Find the news item that matches the last segment in the url.
-                        var newsItem = rootNodes.DescendantsOrSelf(DocumentTypes.BlogPostAlias).Where(x => x.UrlName == parts.Last()).FirstOrDefault();
+                        var newsItem = rootNodes.DescendantsOrSelf(DocumentTypes.BlogPostAlias).FirstOrDefault(x => x.UrlName == parts.Last());
                         if (newsItem != null)
                         {
                             //Get the news item template.
@@ -99,7 +99,7 @@ namespace OctoFramework.Logic.ContentFinder
                 LogHelper.Error<BlogPostsContentFinder>("Failed to find content for Blog Posts", ex);
             }
 
-            return contentRequest.PublishedContent != null;
+            return contentRequest?.PublishedContent != null;
         }
     }
 }

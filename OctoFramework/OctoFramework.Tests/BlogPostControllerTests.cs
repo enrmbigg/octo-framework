@@ -23,7 +23,7 @@ namespace OctoFramework.Tests
             // Our Umbraco Context Mock "Mocker" will give us a fake context
             // Instead of having to write our Umbraco.EnsureContext method
             _mocker = new ContextMocker();
-            _currentPage = Mock.Of<IPublishedContent>(); ;
+            _currentPage = Mock.Of<IPublishedContent>();
             // Create a fake UmbracoHelper that we can determine the values of
             _helper = new UmbracoHelper(_mocker.UmbracoContextMock, _currentPage);
         }
@@ -52,7 +52,7 @@ namespace OctoFramework.Tests
             // Ensure that getPropertyValue for commentsEnabled returns the expected boolean value
             StubProperty("commentsEnabled", enabled);
             // Create a fake UmbracoHelper that we can determine the values of
-            _helper = new UmbracoHelper(this._mocker.UmbracoContextMock, this._currentPage);
+            _helper = new UmbracoHelper(_mocker.UmbracoContextMock, _currentPage);
             // Create an instance of the controller, and pass in our fake context and helper
             var controller = new BlogPostController(_mocker.UmbracoContextMock, _helper);
             var result = (ViewResult)controller.Index();
@@ -67,7 +67,7 @@ namespace OctoFramework.Tests
             // Ensure that getPropertyValue for commentsEnabled returns the expected boolean value
             Mock.Get(_currentPage).Setup(c => c.CreateDate).Returns(currentDateTime);
             // Create a fake UmbracoHelper that we can determine the values of
-            var helper = new UmbracoHelper(this._mocker.UmbracoContextMock, this._currentPage);
+            var helper = new UmbracoHelper(_mocker.UmbracoContextMock, _currentPage);
             // Create an instance of the controller, and pass in our fake context and helper
             var controller = new BlogPostController(_mocker.UmbracoContextMock, helper);
             var result = (ViewResult)controller.Index();
@@ -78,16 +78,15 @@ namespace OctoFramework.Tests
         [Test]
         public void HasBlogTags()
         {
-            var currentDateTime = DateTime.Today;
             // Ensure that getPropertyValue for commentsEnabled returns the expected boolean value
             StubProperty("tag", "test,tags");
             // Create a fake UmbracoHelper that we can determine the values of
-            var helper = new UmbracoHelper(this._mocker.UmbracoContextMock, this._currentPage);
+            var helper = new UmbracoHelper(_mocker.UmbracoContextMock, _currentPage);
             // Create an instance of the controller, and pass in our fake context and helper
             var controller = new BlogPostController(_mocker.UmbracoContextMock, helper);
             var result = (ViewResult)controller.Index();
             var viewModel = (BlogPostViewModel)result.Model;
-            var array = new string[2] { "test", "tags" };
+            var array = new[] { "test", "tags" };
             Assert.AreEqual(array, viewModel.BlogTags);
         }
 

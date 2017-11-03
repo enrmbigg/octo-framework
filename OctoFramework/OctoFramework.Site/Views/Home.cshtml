@@ -1,8 +1,7 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<HomeViewModel>
+﻿@inherits UmbracoViewPage<HomeViewModel>
 @{
     Layout = "Master.cshtml";
 }
-
 @Html.Partial("_introSectionImage")
 <div id="content" class="content-container">
     @Html.Partial("_horizontalCards")
