@@ -1,0 +1,22 @@
+Failed to build PureLive models.
+Type 'OctoFramework.Logic.PropertyConverters.MultipleMediaPickerConverter' cannot be an IPropertyValueConverter for property 'pageImage' of content type 'mainContent' because type 'OctoFramework.Logic.PropertyConverters.MediaPickerConverter' has already been detected as a converter for that property, and only one converter can exist for a property.
+
+   at Umbraco.Core.Models.PublishedContent.PublishedPropertyType.InitializeConverters()
+   at Umbraco.Core.Models.PublishedContent.PublishedPropertyType..ctor(PublishedContentType contentType, PropertyType propertyType)
+   at Umbraco.Core.Models.PublishedContent.PublishedContentType.<.ctor>b__3_0(PropertyType x)
+   at System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Umbraco.Core.Models.PublishedContent.PublishedContentType..ctor(IContentTypeComposition contentType)
+   at Umbraco.Core.Models.PublishedContent.PublishedContentType.CreatePublishedContentType(PublishedItemType itemType, String alias)
+   at Umbraco.Core.Models.PublishedContent.PublishedContentType.<>c__DisplayClass25_0.<Get>b__0()
+   at Umbraco.Core.Cache.CacheProviderExtensions.<>c__DisplayClass5_0`1.<GetCacheItem>b__0()
+   at Umbraco.Core.Cache.StaticCacheProvider.<>c__DisplayClass11_0.<GetCacheItem>b__0(String key)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Umbraco.Core.Cache.StaticCacheProvider.GetCacheItem(String cacheKey, Func`1 getCacheItem)
+   at Umbraco.Core.Cache.CacheProviderExtensions.GetCacheItem[T](ICacheProvider provider, String cacheKey, Func`1 getCacheItem)
+   at Umbraco.Core.Models.PublishedContent.PublishedContentType.Get(PublishedItemType itemType, String alias)
+   at Umbraco.ModelsBuilder.Umbraco.Application.GetTypes(PublishedItemType itemType, IContentTypeBase[] contentTypes) in X:\Projects\Umbraco\ModelsBuilder\Zbu.ModelsBuilder\Umbraco.ModelsBuilder\Umbraco\Application.cs:line 162
+   at Umbraco.ModelsBuilder.Umbraco.Application.GetAllTypes() in X:\Projects\Umbraco\ModelsBuilder\Zbu.ModelsBuilder\Umbraco.ModelsBuilder\Umbraco\Application.cs:line 51
+   at Umbraco.ModelsBuilder.Umbraco.PureLiveModelFactory.GetModelsAssembly(Boolean forceRebuild) in X:\Projects\Umbraco\ModelsBuilder\Zbu.ModelsBuilder\Umbraco.ModelsBuilder\Umbraco\PureLiveModelFactory.cs:line 288
+   at Umbraco.ModelsBuilder.Umbraco.PureLiveModelFactory.EnsureModels() in X:\Projects\Umbraco\ModelsBuilder\Zbu.ModelsBuilder\Umbraco.ModelsBuilder\Umbraco\PureLiveModelFactory.cs:line 221
